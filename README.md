@@ -1,6 +1,6 @@
 # Exemplo de API com Flask
 
-Esse repositório serve para ilustrar a construção de APIs com Flask em Python. Testes com utilizando a biblioteca Pytest também foram adicionados.
+Esse repositório serve para ilustrar a construção de APIs com Flask em Python. Testes utilizando a biblioteca Pytest também foram adicionados.
 
 ## Como executar a API
 
@@ -24,7 +24,7 @@ python3 -m pytest
 
 ### Para que servem?
 
-Um ambiente virtual serve para que seja possível encapsular os pacotes utilizados na API a fim de que eles não "poluam" sua máquina. Utilizar esses ambientes também se mostram úteis no processo de automatização da instalação das dependências do projeto, além de evitar interferências em pacotes de outros projetos.
+Um ambiente virtual serve para que nele seja possível encapsular os pacotes utilizados na API a fim de que eles não "poluam" sua máquina. Utilizar esses ambientes também se mostram úteis no processo de automatização da instalação das dependências do projeto, além de evitar interferências em pacotes de outros projetos.
 
 ### Como criar um ambiente virtual e instalar os pacotes:
 
