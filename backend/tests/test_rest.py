@@ -19,7 +19,7 @@ def test_status(client):
     status = response.json
 
     assert response.status_code == 200
-    assert all(key in status for key in expected_keys)
+    assert all(key in status for key in expected_keys) # verifica se todos os campos esperados estão presentes no status
     assert type(status["status"]) is str
     assert type(status["service"]) is str
     assert status["status"] == "operacional"
