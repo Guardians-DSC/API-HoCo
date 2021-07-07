@@ -17,7 +17,7 @@ def status():
 
 @app.route("/cadastrar", methods=['POST'])
 def cadastrar():
-    '''Retorna um json construído a partir do valor do json enviando na request pelo usuário'''
+    '''Retorna um json construído a partir do valor do json enviado na request pelo usuário'''
     content = request.get_json() #captura o json enviado na request
     nome = content["nome"] #pega o valor do campo 'nome' do json
 
