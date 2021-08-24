@@ -2,7 +2,6 @@ import pytest
 
 from backend import rest
 
-
 # Fixtures nada mais são do que variáveis personalizadas que poderão ser utilizadas nos testes.
 
 # Essa fixture foi feita com base na recomendação de testagem da documentação do Flask,
@@ -24,20 +23,3 @@ def test_status(client):
     assert type(status["service"]) is str
     assert status["status"] == "operacional"
     assert status["service"] == "api-flask-example"
-
-
-def test_cadastrar(client):
-    assert client is not None
-    nome = "um nome qualquer"
-    json_request = {
-        "nome": nome
-    }
-    expected_status_code = 200
-
-    response = client.post("/cadastrar", json=json_request)
-
-    response_nome = response.json["nome"]
-    response_status_code = response.status_code
-
-    assert response_nome == nome
-    assert response_status_code == expected_status_code
