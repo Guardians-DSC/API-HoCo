@@ -1,3 +1,7 @@
+## 🗒️ Documentação da API
+
+A documentação com instruções de uso para requisições à API pode ser encontrada [aqui](api.md).
+
 # Exemplo de API com Flask
 
 Esse repositório serve para ilustrar a construção de APIs com Flask em Python. Testes utilizando a biblioteca Pytest também foram adicionados.
