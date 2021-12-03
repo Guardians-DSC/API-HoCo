@@ -57,7 +57,7 @@ Status: 200 OK
 
 ## Recupera o número de horas por categoria do aluno
 
-Retorna uma lista contendo o número de horas do aluno por categoria e o número máximo de créditos possíveis na categoria.
+Retorna uma lista contendo o número de horas, por categoria, do aluno e o número máximo de créditos possíveis na categoria.
 
 + URL
 
@@ -149,7 +149,7 @@ Status: 200 OK
 
 ## Cadastra uma atividade do aluno
 
-Adiciona uma atividade no banco de dados e retorna uma lista das atividades cadastradas do aluno. A requisição deve enviar no body um *JSON* com os campos `titulo`, `creditos` e `categoria`.
+Adiciona no banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades adicionadas do aluno. A requisição deve enviar no body um *JSON* com os campos `titulo`, `creditos` e `categoria`.
 
 + URL
 
@@ -201,7 +201,7 @@ Status: 201 CREATED
 		"categoria": "Projeto"
 	},
     {
-		"id:": 129087124908,
+		"id:": 132312312312,
 		"titulo": "Andromedev",
 		"horas": 135,
 		"categoria": "Evento"
@@ -211,7 +211,7 @@ Status: 201 CREATED
 
 ## Lista as atividades cadastradas do aluno
 
-Retorna uma lista contendo todas as atividades cadastradas do aluno.
+Retorna uma lista contendo todas as atividades adicionadas do aluno.
 
 + URL
 
@@ -247,7 +247,7 @@ Status: 200 OK
 		"categoria": "Projeto"
 	},
     {
-		"id:": 129087124908,
+		"id:": 132312312312,
 		"titulo": "Andromedev",
 		"horas": 135,
 		"categoria": "Evento"
@@ -257,7 +257,7 @@ Status: 200 OK
 
 ## Edita uma atividade do aluno
 
-Atualiza as informações de uma atividade do aluno com o ID informado na URL e retorna uma lista contendo as atividades cadastradas do aluno. A requisição deve enviar no body um *JSON* contendo os campos de possível edição, sendo estes: `titulo`, `creditos` e `categoria`.
+Atualiza no banco de dados as informações de uma atividade do aluno e retorna uma lista contendo todas as atividades atuais do aluno. O ID da atividade deve ser informado na URL. A requisição deve enviar no body um *JSON* contendo os campos de possível edição, sendo estes: `titulo`, `creditos` e `categoria`.
 
 + URL
 
@@ -267,7 +267,7 @@ PATCH /atividade/<atividade_id>
 
 | Parameters | Type | Requirement | Description |
 |---|---|---|---|
-| `atividade_id` | String | obrigatório | o id da atividade do aluno. |
+| `atividade_id` | String | obrigatório | o id da atividade. |
 
 + Body
 
@@ -309,7 +309,7 @@ Status: 200 OK
 		"categoria": "Projeto"
 	},
     {
-		"id:": 129087124908,
+		"id:": 132312312312,
 		"titulo": "Andromedev",
 		"horas": 135,
 		"categoria": "Evento"
@@ -319,7 +319,7 @@ Status: 200 OK
 
 ## Deleta uma atividade do aluno
 
-Deleta do banco de dados uma atividade do aluno com o id informado na URL e retorna um *JSON* e retorna uma lista contendo as atividades cadastradas do aluno.
+Deleta do banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades restantes do aluno. O ID da atividade deve ser informado na URL.
 
 + URL
 
@@ -329,7 +329,7 @@ DELETE /atividade/<atividade_id>
 
 | Parameters | Type | Requirement | Description |
 |---|---|---|---|
-| `atividade_id` | String | obrigatório | o id da atividade do aluno. |
+| `atividade_id` | String | obrigatório | o id da atividade. |
 
 **Exemplos**
 
@@ -353,7 +353,7 @@ Status: 200 OK
 		"categoria": "Projeto"
 	},
     {
-		"id:": 129087124908,
+		"id:": 132312312312,
 		"titulo": "Andromedev",
 		"horas": 135,
 		"categoria": "Evento"
@@ -363,9 +363,167 @@ Status: 200 OK
 
 ## Cadastra uma organização do curso
 
+Adiciona no banco de dados uma organização do curso e retorna uma lista contendo todas as organizações adicionadas do curso. A requisição deve enviar no body um *JSON* com o campo `organizacao`.
+
++ URL
+
+```
+POST /organizacao
+```
+
++ Body
+
+| Parameters | Type | Requirement | Description |
+|---|---|---|---|
+| `organizacao` | String | obrigatório | o nome da organização. |
+
+**Exemplos**
+
++ Request
+
+```
+curl -L -X POST 'https://hoco.netlify.app/organizacao' \
+-H 'Content-Type: application/json' \
+--data-raw '{
+	    "organizacao": "OpenDevUFCG"
+    }
+}'
+```
+
++ Response
+
+```
+Status: 201 CREATED
+```
+```
+[
+	{
+		"id": 122,
+		"organizacao": "OpenDevUFCG",
+		"imagem": "img.jpg"
+	},
+	{
+		"id": 123,
+		"organizacao": "Pet@Computação",
+		"imagem": "img.jpg"
+	},
+	{
+		"id": 124,
+		"organizacao": "Caesi",
+		"imagem": "img.jpg"
+	},
+	{
+		"id": 125,
+		"organizacao": "Guardians",
+		"imagem": "img.jpg"
+	},
+	{
+		"id": 126,
+		"organizacao": "Elas@Computação",
+		"imagem": "img.jpg"
+	},
+]
+```
+
 ## Lista as organizações do curso
 
+Retorna uma lista contendo todas as organizações adicionadas do curso.
+
++ URL
+
+```
+GET /organizacoes
+```
+
+**Exemplo**
+
++ Request
+
+```
+curl -L -X GET 'https://hoco.netlify.app/organizacoes'
+```
+
++ Response
+
+```
+Status: 200 OK
+```
+```
+[
+	{
+		"organizacao": "OpenDevUFCG",
+		"imagem": "img.jpg"
+	},
+	{
+		"organizacao": "Pet@Computação",
+		"imagem": "img.jpg"
+	},
+	{
+		"organizacao": "Caesi",
+		"imagem": "img.jpg"
+	},
+	{
+		"organizacao": "Guardians",
+		"imagem": "img.jpg"
+	},
+	{
+		"organizacao": "Elas@Computação",
+		"imagem": "img.jpg"
+	},
+]
+```
+
 ## Deleta uma organização do curso
+
+Deleta do banco de dados uma organização do curso e retorna uma lista contendo todas as organizações restantes do curso. O ID da organização deve ser informado na URL.
+
++ URL
+
+```
+DELETE /organizacao/<organizacao_id>
+```
+
+| Parameters | Type | Requirement | Description |
+|---|---|---|---|
+| `organizacao_id` | String | obrigatório | o id da organização. |
+
+**Exemplos**
+
++ Request
+
+```
+curl -L -X DELETE 'https://hoco.netlify.app/organizacao/123'
+```
+
++ Response
+
+```
+Status: 200 OK
+```
+```
+[
+	{
+		"id": 122,
+		"organizacao": "OpenDevUFCG",
+		"imagem": "img.jpg"
+	},
+	{
+		"id": 124,
+		"organizacao": "Caesi",
+		"imagem": "img.jpg"
+	},
+	{
+		"id": 125,
+		"organizacao": "Guardians",
+		"imagem": "img.jpg"
+	},
+	{
+		"id": 126,
+		"organizacao": "Elas@Computação",
+		"imagem": "img.jpg"
+	},
+]
+```
 
 ## Cadastra uma dúvida
 
