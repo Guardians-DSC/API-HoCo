@@ -51,7 +51,7 @@ Status: 200 OK
 ```
 {
 	"creditos": 11,
-	"maximo": 22,
+	"maximo": 22
 }
 ```
 
@@ -83,23 +83,23 @@ Status: 200 OK
     {
 		"categoria": "Projeto",
 		"acumulado": 16,
-		"maximo": 16,
+		"maximo": 16
 	},
     {
 		"categoria": "Evento",
 		"acumulado": 12,
-		"maximo": 16,
+		"maximo": 16
 	},
     {
 		"categoria": "Monitoria",
 		"acumulado": 4,
-		"maximo": 18,
+		"maximo": 18
 	},
     {
 		"categoria": "Caesi",
 		"acumulado": 2,
-		"maximo": 4,
-    }
+		"maximo": 4
+	}
 ]
 ```
 
@@ -130,20 +130,20 @@ Status: 200 OK
 [
     {
 	    "categoria": "Projeto",
-	    "porcentagem": 0.45,
-    },
+	    "porcentagem": 0.45
+	},
     {
 		"categoria": "Evento",
-		"porcentagem": 0.20,
+		"porcentagem": 0.20
 	},
     {
 		"categoria": "Monitoria",
-		"porcentagem": 0.10,
+		"porcentagem": 0.10
 	},
     {
 		"categoria": "Caesi",
-		"porcentagem": 0.10,
-    }
+		"porcentagem": 0.10
+	}
 ]
 ```
 
