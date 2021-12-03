@@ -149,11 +149,217 @@ Status: 200 OK
 
 ## Cadastra uma atividade do aluno
 
+Adiciona uma atividade no banco de dados e retorna uma lista das atividades cadastradas do aluno. A requisição deve enviar no body um *JSON* com os campos `titulo`, `creditos` e `categoria`.
+
++ URL
+
+```
+POST /atividade
+```
+
++ Body
+
+| Parameters | Type | Requirement | Description |
+|---|---|---|---|
+| `titulo` | String | obrigatório | o nome da atividade. |
+| `creditos` | int | obrigatório | os créditos obtidos na atividade. |
+| `categoria` | String | obrigatório | a categoria da atividade. |
+
+
+**Exemplos**
+
++ Request
+
+```
+curl -L -X POST 'https://hoco.netlify.app/atividade' \
+-H 'Content-Type: application/json' \
+--data-raw '{
+	    "titulo": "projeto ePol",
+		"creditos": 10,
+		"categoria": "Projeto"
+    }
+}'
+```
+
++ Response
+
+```
+Status: 201 CREATED
+```
+```
+[
+	{
+		"id:": 129087124908,
+		"titulo": "projeto ePol",
+		"creditos": 10,
+		"categoria": "Projeto"
+	},
+    {
+		"id:": 129087124901,
+		"titulo": "CodeSQ",
+		"creditos": 4,
+		"categoria": "Projeto"
+	},
+    {
+		"id:": 129087124908,
+		"titulo": "Andromedev",
+		"horas": 135,
+		"categoria": "Evento"
+	}
+]
+```
+
 ## Lista as atividades cadastradas do aluno
+
+Retorna uma lista contendo todas as atividades cadastradas do aluno.
+
++ URL
+
+```
+GET /atividades
+```
+
+**Exemplo**
+
++ Request
+
+```
+curl -L -X GET 'https://hoco.netlify.app/atividades'
+```
+
++ Response
+
+```
+Status: 200 OK
+```
+```
+[
+	{
+		"id:": 129087124908,
+		"titulo": "projeto ePol",
+		"creditos": 10,
+		"categoria": "Projeto"
+	},
+    {
+		"id:": 129087124901,
+		"titulo": "CodeSQ",
+		"creditos": 4,
+		"categoria": "Projeto"
+	},
+    {
+		"id:": 129087124908,
+		"titulo": "Andromedev",
+		"horas": 135,
+		"categoria": "Evento"
+	}
+]
+```
 
 ## Edita uma atividade do aluno
 
+Atualiza as informações de uma atividade do aluno com o ID informado na URL e retorna uma lista contendo as atividades cadastradas do aluno. A requisição deve enviar no body um *JSON* contendo os campos de possível edição, sendo estes: `titulo`, `creditos` e `categoria`.
+
++ URL
+
+```
+PATCH /atividade/<atividade_id>
+```
+
+| Parameters | Type | Requirement | Description |
+|---|---|---|---|
+| `atividade_id` | String | obrigatório | o id da atividade do aluno. |
+
++ Body
+
+| Parameters | Type | Requirement | Description |
+|---|---|---|---|
+| `titulo` | String | opcional | o nome da atividade. |
+| `creditos` | int | opcional | os créditos obtidos na atividade. |
+| `categoria` | String | opcional | a categoria da atividade. |
+
+**Exemplos**
+
++ Request
+
+```
+curl -L -X PATCH 'https://hoco.netlify.app/atividade/129087124908' \
+-H 'Content-Type: application/json' \
+--data-raw '{
+    "creditos": 12
+}'
+```
+
++ Response
+
+```
+Status: 200 OK
+```
+```
+[
+	{
+		"id:": 129087124908,
+		"titulo": "projeto ePol",
+		"creditos": 12,
+		"categoria": "Projeto"
+	},
+    {
+		"id:": 129087124901,
+		"titulo": "CodeSQ",
+		"creditos": 4,
+		"categoria": "Projeto"
+	},
+    {
+		"id:": 129087124908,
+		"titulo": "Andromedev",
+		"horas": 135,
+		"categoria": "Evento"
+	}
+]
+```
+
 ## Deleta uma atividade do aluno
+
+Deleta do banco de dados uma atividade do aluno com o id informado na URL e retorna um *JSON* e retorna uma lista contendo as atividades cadastradas do aluno.
+
++ URL
+
+```
+DELETE /atividade/<atividade_id>
+```
+
+| Parameters | Type | Requirement | Description |
+|---|---|---|---|
+| `atividade_id` | String | obrigatório | o id da atividade do aluno. |
+
+**Exemplos**
+
++ Request
+
+```
+curl -L -X DELETE 'https://hoco.netlify.app/atividade/129087124908'
+```
+
++ Response
+
+```
+Status: 200 OK
+```
+```
+[
+    {
+		"id:": 129087124901,
+		"titulo": "CodeSQ",
+		"creditos": 4,
+		"categoria": "Projeto"
+	},
+    {
+		"id:": 129087124908,
+		"titulo": "Andromedev",
+		"horas": 135,
+		"categoria": "Evento"
+	}
+]
+```
 
 ## Cadastra uma organização do curso
 
