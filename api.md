@@ -13,17 +13,17 @@ API RESTful do projeto [HoCo](https://github.com/Guardians-DSC/HoCo), que dispõ
 * [**Cadastra uma atividade do aluno**](#cadastra-uma-atividade-do-aluno)
 * [**Lista as atividades cadastradas do aluno**](#lista-as-atividades-cadastradas-do-aluno)
 * [**Edita uma atividade do aluno**](#edita-uma-atividade-do-aluno)
-* [**Deleta uma atividade do aluno**](#deleta-uma-atividade-do-aluno)
+* [**Remove uma atividade do aluno**](#remove-uma-atividade-do-aluno)
 
 **Organizações**
 * [**Cadastra uma organização do curso**](#cadastra-uma-organização-do-curso)
 * [**Lista as organizações do curso**](#lista-as-organizações-do-curso)
-* [**Deleta uma organização do curso**](#deleta-uma-organização-do-curso)
+* [**Remove uma organização do curso**](#remove-uma-organização-do-curso)
 
 **Dúvidas**
 * [**Cadastra uma dúvida**](#cadastra-uma-dúvida)
 * [**Lista as dúvidas**](#lista-as-dúvidas)
-* [**Deleta uma dúvida**](#deleta-uma-dúvida)
+* [**Remove uma dúvida**](#remove-uma-dúvida)
 
 ## Recupera o total de créditos do aluno
 
@@ -164,7 +164,6 @@ POST /atividade
 | `titulo` | String | obrigatório | o nome da atividade. |
 | `creditos` | int | obrigatório | os créditos obtidos na atividade. |
 | `categoria` | String | obrigatório | a categoria da atividade. |
-
 
 **Exemplos**
 
@@ -317,7 +316,7 @@ Status: 200 OK
 ]
 ```
 
-## Deleta uma atividade do aluno
+## Remove uma atividade do aluno
 
 Deleta do banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades restantes do aluno. O ID da atividade deve ser informado na URL.
 
@@ -421,7 +420,7 @@ Status: 201 CREATED
 		"id": 126,
 		"organizacao": "Elas@Computação",
 		"imagem": "img.jpg"
-	},
+	}
 ]
 ```
 
@@ -469,11 +468,11 @@ Status: 200 OK
 	{
 		"organizacao": "Elas@Computação",
 		"imagem": "img.jpg"
-	},
+	}
 ]
 ```
 
-## Deleta uma organização do curso
+## Remove uma organização do curso
 
 Deleta do banco de dados uma organização do curso e retorna uma lista contendo todas as organizações restantes do curso. O ID da organização deve ser informado na URL.
 
@@ -521,12 +520,147 @@ Status: 200 OK
 		"id": 126,
 		"organizacao": "Elas@Computação",
 		"imagem": "img.jpg"
-	},
+	}
 ]
 ```
 
 ## Cadastra uma dúvida
 
+Adiciona no banco de dados uma dúvida sobre o curso com a respectiva resposta e retorna uma lista contendo todas as dúvidas adicionadas sobre o curso. A requisição deve enviar no body um *JSON* com os campos `pergunta` e `resposta`.
+
++ URL
+
+```
+POST /duvida
+```
+
++ Body
+
+| Parameters | Type | Requirement | Description |
+|---|---|---|---|
+| `pergunta` | String | obrigatório | a dúvida sobre o curso. |
+| `resposta` | String | obrigatório | a resposta da dúvida sobre o curso. |
+
+**Exemplos**
+
++ Request
+
+```
+curl -L -X POST 'https://hoco.netlify.app/duvida' \
+-H 'Content-Type: application/json' \
+--data-raw '{
+	    "pergunta": "[a pergunta aqui]",
+		"resposta": "[a resposta aqui]"
+    }
+}'
+```
+
++ Response
+
+```
+Status: 201 CREATED
+```
+```
+[
+	{
+		"id": 12345,
+		"pergunta": "[a pergunta aqui]",
+		"resposta": "[a resposta aqui]"
+	},
+	{
+		"id": 12678,
+		"pergunta": "[a pergunta aqui]",
+		"resposta": "[a resposta aqui]"
+	},
+	{
+		"id": 12901,
+		"pergunta": "[a pergunta aqui]",
+		"resposta": "[a resposta aqui]"
+	}
+]
+```
+
 ## Lista as dúvidas
 
-## Deleta uma dúvida
+Retorna uma lista contendo todas as dúvidas adicionadas sobre o curso.
+
++ URL
+
+```
+GET /duvidas
+```
+
+**Exemplo**
+
++ Request
+
+```
+curl -L -X GET 'https://hoco.netlify.app/duvidas'
+```
+
++ Response
+
+```
+Status: 200 OK
+```
+```
+[
+	{
+		"id": 12345,
+		"pergunta": "[a pergunta aqui]",
+		"resposta": "[a resposta aqui]"
+	},
+	{
+		"id": 12678,
+		"pergunta": "[a pergunta aqui]",
+		"resposta": "[a resposta aqui]"
+	},
+	{
+		"id": 12901,
+		"pergunta": "[a pergunta aqui]",
+		"resposta": "[a resposta aqui]"
+	}
+]
+```
+
+## Remove uma dúvida
+
+Deleta do banco de dados uma dúvida sobre o curso e retorna uma lista contendo todas as dúvidas restantes sobre o curso. O ID da organização deve ser informado na URL.
+
++ URL
+
+```
+DELETE /duvida/<duvida_id>
+```
+
+| Parameters | Type | Requirement | Description |
+|---|---|---|---|
+| `duvida_id` | String | obrigatório | o id da organização. |
+
+**Exemplos**
+
++ Request
+
+```
+curl -L -X DELETE 'https://hoco.netlify.app/duvida/12345'
+```
+
++ Response
+
+```
+Status: 200 OK
+```
+```
+[
+	{
+		"id": 12678,
+		"pergunta": "[a pergunta aqui]",
+		"resposta": "[a resposta aqui]"
+	},
+	{
+		"id": 12901,
+		"pergunta": "[a pergunta aqui]",
+		"resposta": "[a resposta aqui]"
+	}
+]
+```
