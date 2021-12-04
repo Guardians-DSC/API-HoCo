@@ -6,7 +6,7 @@ API RESTful do projeto [HoCo](https://github.com/Guardians-DSC/HoCo), que dispõ
 
 **Minhas horas**
 * [**Recupera o total de créditos do aluno**](#recupera-o-total-de-créditos-do-aluno)
-* [**Recupera o número de horas por categoria do aluno**](#recupera-o-número-de-horas-por-categoria-do-aluno)
+* [**Recupera o total de créditos por categoria do aluno**](#recupera-o-total-de-créditos-por-categoria-do-aluno)
 * [**Recupera as 4 categorias com o maior número de créditos do aluno**](#recupera-as-4-categorias-com-o-maior-número-de-créditos-do-aluno)
 
 **Minhas atividades**
@@ -55,14 +55,14 @@ Status: 200 OK
 }
 ```
 
-## Recupera o número de horas por categoria do aluno
+## Recupera o total de créditos por categoria do aluno
 
-Retorna uma lista contendo o número de horas, por categoria, do aluno e o número máximo de créditos possíveis na categoria.
+Retorna uma lista contendo o total de créditos acumulados, por categoria, do aluno e o número máximo de créditos possíveis na categoria.
 
 + URL
 
 ```
-GET /categorias/horas
+GET /categorias/creditos
 ```
 
 **Exemplo**
@@ -70,7 +70,7 @@ GET /categorias/horas
 + Request
 
 ```
-curl -L -X GET 'https://hoco.netlify.app/categorias/horas'
+curl -L -X GET 'https://hoco.netlify.app/categorias/creditos'
 ```
 
 + Response
@@ -261,7 +261,7 @@ Atualiza no banco de dados as informações de uma atividade do aluno e retorna 
 + URL
 
 ```
-PATCH /atividade/<atividade_id>
+PATCH /atividade?id=<atividade_id>
 ```
 
 | Parameters | Type | Requirement | Description |
@@ -281,7 +281,7 @@ PATCH /atividade/<atividade_id>
 + Request
 
 ```
-curl -L -X PATCH 'https://hoco.netlify.app/atividade/129087124908' \
+curl -L -X PATCH 'https://hoco.netlify.app/atividade?id=129087124908' \
 -H 'Content-Type: application/json' \
 --data-raw '{
     "creditos": 12
@@ -323,7 +323,7 @@ Deleta do banco de dados uma atividade do aluno e retorna uma lista contendo tod
 + URL
 
 ```
-DELETE /atividade/<atividade_id>
+DELETE /atividade?id=<atividade_id>
 ```
 
 | Parameters | Type | Requirement | Description |
@@ -335,7 +335,7 @@ DELETE /atividade/<atividade_id>
 + Request
 
 ```
-curl -L -X DELETE 'https://hoco.netlify.app/atividade/129087124908'
+curl -L -X DELETE 'https://hoco.netlify.app/atividade?id=129087124908'
 ```
 
 + Response
@@ -479,7 +479,7 @@ Deleta do banco de dados uma organização do curso e retorna uma lista contendo
 + URL
 
 ```
-DELETE /organizacao/<organizacao_id>
+DELETE /organizacao?id=<organizacao_id>
 ```
 
 | Parameters | Type | Requirement | Description |
@@ -491,7 +491,7 @@ DELETE /organizacao/<organizacao_id>
 + Request
 
 ```
-curl -L -X DELETE 'https://hoco.netlify.app/organizacao/123'
+curl -L -X DELETE 'https://hoco.netlify.app/organizacao?id=123'
 ```
 
 + Response
@@ -630,7 +630,7 @@ Deleta do banco de dados uma dúvida sobre o curso e retorna uma lista contendo 
 + URL
 
 ```
-DELETE /duvida/<duvida_id>
+DELETE /duvida?id=<duvida_id>
 ```
 
 | Parameters | Type | Requirement | Description |
@@ -642,7 +642,7 @@ DELETE /duvida/<duvida_id>
 + Request
 
 ```
-curl -L -X DELETE 'https://hoco.netlify.app/duvida/12345'
+curl -L -X DELETE 'https://hoco.netlify.app/duvida?id=12345'
 ```
 
 + Response
