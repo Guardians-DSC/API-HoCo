@@ -149,7 +149,7 @@ Status: 200 OK
 
 ## Cadastra uma atividade do aluno
 
-Adiciona no banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades adicionadas do aluno. A requisição deve enviar no body um *JSON* com os campos `titulo`, `creditos` e `categoria`.
+Adiciona no banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades adicionadas do aluno. A requisição deve enviar no body um *JSON* com os campos `titulo`, `creditos`, `horas` e `categoria`.
 
 + URL
 
@@ -163,6 +163,7 @@ POST /atividade
 |---|---|---|---|
 | `titulo` | String | obrigatório | o nome da atividade. |
 | `creditos` | int | obrigatório | os créditos obtidos na atividade. |
+| `horas` | int | obrigatório | as horas gastas na atividade. |
 | `categoria` | String | obrigatório | a categoria da atividade. |
 
 **Exemplos**
@@ -191,12 +192,14 @@ Status: 201 CREATED
 		"id:": 129087124908,
 		"titulo": "projeto ePol",
 		"creditos": 10,
+		"horas": 950,
 		"categoria": "Projeto"
 	},
     {
 		"id:": 129087124901,
 		"titulo": "CodeSQ",
 		"creditos": 4,
+		"horas": 320,
 		"categoria": "Projeto"
 	},
     {
@@ -237,12 +240,14 @@ Status: 200 OK
 		"id:": 129087124908,
 		"titulo": "projeto ePol",
 		"creditos": 10,
+		"horas": 950,
 		"categoria": "Projeto"
 	},
     {
 		"id:": 129087124901,
 		"titulo": "CodeSQ",
 		"creditos": 4,
+		"horas": 320,
 		"categoria": "Projeto"
 	},
     {
@@ -256,7 +261,7 @@ Status: 200 OK
 
 ## Edita uma atividade do aluno
 
-Atualiza no banco de dados as informações de uma atividade do aluno e retorna uma lista contendo todas as atividades atuais do aluno. O ID da atividade deve ser informado na URL. A requisição deve enviar no body um *JSON* contendo os campos de possível edição, sendo estes: `titulo`, `creditos` e `categoria`.
+Atualiza no banco de dados as informações de uma atividade do aluno e retorna uma lista contendo todas as atividades atuais do aluno. O ID da atividade deve ser informado na URL. A requisição deve enviar no body um *JSON* contendo os campos de possível edição, sendo estes: `titulo`, `creditos`, `horas` e `categoria`.
 
 + URL
 
@@ -274,6 +279,7 @@ PATCH /atividade?id=<atividade_id>
 |---|---|---|---|
 | `titulo` | String | opcional | o nome da atividade. |
 | `creditos` | int | opcional | os créditos obtidos na atividade. |
+| `horas` | int | opcional | as horas gastas na atividade. |
 | `categoria` | String | opcional | a categoria da atividade. |
 
 **Exemplos**
@@ -299,12 +305,14 @@ Status: 200 OK
 		"id:": 129087124908,
 		"titulo": "projeto ePol",
 		"creditos": 12,
+		"horas": 950,
 		"categoria": "Projeto"
 	},
     {
 		"id:": 129087124901,
 		"titulo": "CodeSQ",
 		"creditos": 4,
+		"horas": 320,
 		"categoria": "Projeto"
 	},
     {
