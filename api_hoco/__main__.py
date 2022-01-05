@@ -1,6 +1,8 @@
-# aqui eu faço a inicialização do servidor, rodando em http://0.0.0.0/5000
+from flask import Flask
+from api_hoco.routes.api import api
 
-from . rest import app
+app = Flask(__name__)
 
+app.register_blueprint(api)
 
 app.run(host="0.0.0.0", port=8000, debug=True)
