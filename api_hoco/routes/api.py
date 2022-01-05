@@ -10,8 +10,8 @@ def status():
     current_timestamp = datetime.now()
 
     status = {
-        "status": "operacional",
-        "service": "api-flask-example",
+        "status": "Operacional",
+        "service": "API-HoCo",
         "timestamp": datetime.timestamp(current_timestamp),
         "date": current_timestamp,
     }
