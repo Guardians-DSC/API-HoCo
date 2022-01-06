@@ -2,34 +2,38 @@
 
 API RESTful do projeto [HoCo](https://github.com/Guardians-DSC/HoCo), que dispõe de funcionalidades *CRUD* de um sistema para gerenciamento de horas complementares dos alunos da graduação de Ciência da Computação na UFCG.
 
-**Funcionalidades oferecidas pela API:**
+## **Funcionalidades oferecidas pela API:**
 
-**Minhas horas**
-* [**Recupera o total de créditos do aluno**](#recupera-o-total-de-créditos-do-aluno)
-* [**Recupera o total de créditos por categoria do aluno**](#recupera-o-total-de-créditos-por-categoria-do-aluno)
-* [**Recupera as 4 categorias com o maior número de créditos do aluno**](#recupera-as-4-categorias-com-o-maior-número-de-créditos-do-aluno)
+### **Minhas horas**
 
-**Minhas atividades**
-* [**Cadastra uma atividade do aluno**](#cadastra-uma-atividade-do-aluno)
-* [**Lista as atividades cadastradas do aluno**](#lista-as-atividades-cadastradas-do-aluno)
-* [**Edita uma atividade do aluno**](#edita-uma-atividade-do-aluno)
-* [**Remove uma atividade do aluno**](#remove-uma-atividade-do-aluno)
+- [**Recupera o total de créditos do aluno**](#recupera-o-total-de-creditos-do-aluno)
+- [**Recupera o total de créditos por categoria do aluno**](#recupera-o-total-de-creditos-por-categoria-do-aluno)
+- [**Recupera as 4 categorias com o maior número de créditos do aluno**](#recupera-as-4-categorias-com-o-maior-numero-de-creditos-do-aluno)
 
-**Organizações**
-* [**Cadastra uma organização do curso**](#cadastra-uma-organização-do-curso)
-* [**Lista as organizações do curso**](#lista-as-organizações-do-curso)
-* [**Remove uma organização do curso**](#remove-uma-organização-do-curso)
+### **Minhas atividades**
 
-**Dúvidas**
-* [**Cadastra uma dúvida**](#cadastra-uma-dúvida)
-* [**Lista as dúvidas**](#lista-as-dúvidas)
-* [**Remove uma dúvida**](#remove-uma-dúvida)
+- [**Cadastra uma atividade do aluno**](#cadastra-uma-atividade-do-aluno)
+- [**Lista as atividades cadastradas do aluno**](#lista-as-atividades-cadastradas-do-aluno)
+- [**Edita uma atividade do aluno**](#edita-uma-atividade-do-aluno)
+- [**Remove uma atividade do aluno**](#remove-uma-atividade-do-aluno)
 
-## Recupera o total de créditos do aluno
+### **Organizações**
+
+- [**Cadastra uma organização do curso**](#cadastra-uma-organizacao-do-curso)
+- [**Lista as organizações do curso**](#lista-as-organizacoes-do-curso)
+- [**Remove uma organização do curso**](#remove-uma-organizaçao-do-curso)
+
+### **Dúvidas**
+
+- [**Cadastra uma dúvida**](#cadastra-uma-duvida)
+- [**Lista as dúvidas**](#lista-as-duvidas)
+- [**Remove uma dúvida**](#remove-uma-dkvida)
+
+## Recupera o total de creditos do aluno
 
 Retorna um *JSON* contendo o número de créditos atual do aluno e o número máximo de créditos necessários no curso.
 
-+ URL
+#### URL
 
 ```
 GET /creditos
@@ -37,13 +41,13 @@ GET /creditos
 
 **Exemplo**
 
-+ Request
+#### Request
 
 ```
 curl -L -X GET 'https://hoco.netlify.app/creditos'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 200 OK
@@ -55,11 +59,11 @@ Status: 200 OK
 }
 ```
 
-## Recupera o total de créditos por categoria do aluno
+## Recupera o total de creditos por categoria do aluno
 
 Retorna uma lista contendo o total de créditos acumulados, por categoria, do aluno e o número máximo de créditos possíveis na categoria.
 
-+ URL
+#### URL
 
 ```
 GET /categorias/creditos
@@ -67,13 +71,13 @@ GET /categorias/creditos
 
 **Exemplo**
 
-+ Request
+#### Request
 
 ```
 curl -L -X GET 'https://hoco.netlify.app/categorias/creditos'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 200 OK
@@ -103,11 +107,11 @@ Status: 200 OK
 ]
 ```
 
-## Recupera as 4 categorias com o maior número de créditos do aluno
+## Recupera as 4 categorias com o maior numero de creditos do aluno
 
 Retorna uma lista contendo as quatro categorias com o maior número de créditos do aluno, ordenadas pela porcentagem.
 
-+ URL
+#### URL
 
 ```
 GET /categorias/top
@@ -115,13 +119,13 @@ GET /categorias/top
 
 **Exemplo**
 
-+ Request
+#### Request
 
 ```
 curl -L -X GET 'https://hoco.netlify.app/categorias/top'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 200 OK
@@ -151,13 +155,13 @@ Status: 200 OK
 
 Adiciona no banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades adicionadas do aluno. A requisição deve enviar no body um *JSON* com os campos `titulo`, `creditos`, `horas` e `categoria`.
 
-+ URL
+#### URL
 
 ```
 POST /atividade
 ```
 
-+ Body
+#### Body
 
 | Parameters | Type | Requirement | Description |
 |---|---|---|---|
@@ -168,7 +172,7 @@ POST /atividade
 
 **Exemplos**
 
-+ Request
+#### Request
 
 ```
 curl -L -X POST 'https://hoco.netlify.app/atividade' \
@@ -181,7 +185,7 @@ curl -L -X POST 'https://hoco.netlify.app/atividade' \
 }'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 201 CREATED
@@ -215,7 +219,7 @@ Status: 201 CREATED
 
 Retorna uma lista contendo todas as atividades adicionadas do aluno.
 
-+ URL
+#### URL
 
 ```
 GET /atividades
@@ -223,13 +227,13 @@ GET /atividades
 
 **Exemplo**
 
-+ Request
+#### Request
 
 ```
 curl -L -X GET 'https://hoco.netlify.app/atividades'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 200 OK
@@ -263,7 +267,7 @@ Status: 200 OK
 
 Atualiza no banco de dados as informações de uma atividade do aluno e retorna uma lista contendo todas as atividades atuais do aluno. O ID da atividade deve ser informado na URL. A requisição deve enviar no body um *JSON* contendo os campos de possível edição, sendo estes: `titulo`, `creditos`, `horas` e `categoria`.
 
-+ URL
+#### URL
 
 ```
 PATCH /atividade?id=<atividade_id>
@@ -273,7 +277,7 @@ PATCH /atividade?id=<atividade_id>
 |---|---|---|---|
 | `atividade_id` | String | obrigatório | o id da atividade. |
 
-+ Body
+#### Body
 
 | Parameters | Type | Requirement | Description |
 |---|---|---|---|
@@ -284,7 +288,7 @@ PATCH /atividade?id=<atividade_id>
 
 **Exemplos**
 
-+ Request
+#### Request
 
 ```
 curl -L -X PATCH 'https://hoco.netlify.app/atividade?id=129087124908' \
@@ -294,7 +298,7 @@ curl -L -X PATCH 'https://hoco.netlify.app/atividade?id=129087124908' \
 }'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 200 OK
@@ -328,7 +332,7 @@ Status: 200 OK
 
 Deleta do banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades restantes do aluno. O ID da atividade deve ser informado na URL.
 
-+ URL
+#### URL
 
 ```
 DELETE /atividade?id=<atividade_id>
@@ -340,13 +344,13 @@ DELETE /atividade?id=<atividade_id>
 
 **Exemplos**
 
-+ Request
+#### Request
 
 ```
 curl -L -X DELETE 'https://hoco.netlify.app/atividade?id=129087124908'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 200 OK
@@ -372,13 +376,13 @@ Status: 200 OK
 
 Adiciona no banco de dados uma organização do curso e retorna uma lista contendo todas as organizações adicionadas do curso. A requisição deve enviar no body um *JSON* com o campo `organizacao`.
 
-+ URL
+#### URL
 
 ```
 POST /organizacao
 ```
 
-+ Body
+#### Body
 
 | Parameters | Type | Requirement | Description |
 |---|---|---|---|
@@ -386,7 +390,7 @@ POST /organizacao
 
 **Exemplos**
 
-+ Request
+#### Request
 
 ```
 curl -L -X POST 'https://hoco.netlify.app/organizacao' \
@@ -397,7 +401,7 @@ curl -L -X POST 'https://hoco.netlify.app/organizacao' \
 }'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 201 CREATED
@@ -432,11 +436,11 @@ Status: 201 CREATED
 ]
 ```
 
-## Lista as organizações do curso
+## Lista as organizacoes do curso
 
 Retorna uma lista contendo todas as organizações adicionadas do curso.
 
-+ URL
+#### URL
 
 ```
 GET /organizacoes
@@ -444,13 +448,13 @@ GET /organizacoes
 
 **Exemplo**
 
-+ Request
+#### Request
 
 ```
 curl -L -X GET 'https://hoco.netlify.app/organizacoes'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 200 OK
@@ -480,11 +484,11 @@ Status: 200 OK
 ]
 ```
 
-## Remove uma organização do curso
+## Remove uma organizacao do curso
 
 Deleta do banco de dados uma organização do curso e retorna uma lista contendo todas as organizações restantes do curso. O ID da organização deve ser informado na URL.
 
-+ URL
+#### URL
 
 ```
 DELETE /organizacao?id=<organizacao_id>
@@ -496,13 +500,13 @@ DELETE /organizacao?id=<organizacao_id>
 
 **Exemplos**
 
-+ Request
+#### Request
 
 ```
 curl -L -X DELETE 'https://hoco.netlify.app/organizacao?id=123'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 200 OK
@@ -532,17 +536,17 @@ Status: 200 OK
 ]
 ```
 
-## Cadastra uma dúvida
+## Cadastra uma duvida
 
 Adiciona no banco de dados uma dúvida sobre o curso com a respectiva resposta e retorna uma lista contendo todas as dúvidas adicionadas sobre o curso. A requisição deve enviar no body um *JSON* com os campos `pergunta` e `resposta`.
 
-+ URL
+#### URL
 
 ```
 POST /duvida
 ```
 
-+ Body
+#### Body
 
 | Parameters | Type | Requirement | Description |
 |---|---|---|---|
@@ -551,7 +555,7 @@ POST /duvida
 
 **Exemplos**
 
-+ Request
+#### Request
 
 ```
 curl -L -X POST 'https://hoco.netlify.app/duvida' \
@@ -563,7 +567,7 @@ curl -L -X POST 'https://hoco.netlify.app/duvida' \
 }'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 201 CREATED
@@ -588,11 +592,11 @@ Status: 201 CREATED
 ]
 ```
 
-## Lista as dúvidas
+## Lista as duvidas
 
 Retorna uma lista contendo todas as dúvidas adicionadas sobre o curso.
 
-+ URL
+#### URL
 
 ```
 GET /duvidas
@@ -600,13 +604,13 @@ GET /duvidas
 
 **Exemplo**
 
-+ Request
+#### Request
 
 ```
 curl -L -X GET 'https://hoco.netlify.app/duvidas'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 200 OK
@@ -631,11 +635,11 @@ Status: 200 OK
 ]
 ```
 
-## Remove uma dúvida
+## Remove uma duvida
 
 Deleta do banco de dados uma dúvida sobre o curso e retorna uma lista contendo todas as dúvidas restantes sobre o curso. O ID da organização deve ser informado na URL.
 
-+ URL
+#### URL
 
 ```
 DELETE /duvida?id=<duvida_id>
@@ -647,13 +651,13 @@ DELETE /duvida?id=<duvida_id>
 
 **Exemplos**
 
-+ Request
+#### Request
 
 ```
 curl -L -X DELETE 'https://hoco.netlify.app/duvida?id=12345'
 ```
 
-+ Response
+#### Response
 
 ```
 Status: 200 OK

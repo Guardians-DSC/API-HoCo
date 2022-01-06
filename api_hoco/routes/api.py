@@ -1,5 +1,5 @@
-from flask import Blueprint
-from flask import jsonify
+from os import getcwd
+from flask import Blueprint, jsonify, render_template
 from datetime import datetime
 
 api = Blueprint('api', __name__, template_folder='templates')
@@ -16,4 +16,8 @@ def status():
         "date": current_timestamp,
     }
     return jsonify(status), 200
+
+@api.route("/doc/", methods=['GET'])
+def doc():
+    return render_template("index.html")
 

@@ -2,6 +2,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/venv,macos,visualstudiocode,python,flask
 # Edit at https://www.toptal.com/developers/gitignore?templates=venv,macos,visualstudiocode,python,flask
 
+MarkHTML/
+
 ### Flask ###
 instance/*
 !instance/.gitignore
