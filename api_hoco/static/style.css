@@ -2,6 +2,7 @@ html {
 	font-family: sans-serif;
 	background-color: #FDFDFD;
 	margin-bottom: 4rem;
+	scroll-behavior: smooth;
 }
 
 body {
