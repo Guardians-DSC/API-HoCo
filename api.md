@@ -27,7 +27,7 @@ API RESTful do projeto [HoCo](https://github.com/Guardians-DSC/HoCo), que dispõ
 
 - [**Cadastra uma dúvida**](#cadastra-uma-duvida)
 - [**Lista as dúvidas**](#lista-as-duvidas)
-- [**Remove uma dúvida**](#remove-uma-dkvida)
+- [**Remove uma dúvida**](#remove-uma-duvida)
 
 ## Recupera o total de creditos do aluno
 
