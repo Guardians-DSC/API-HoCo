@@ -17,7 +17,7 @@ def status():
     }
     return jsonify(status), 200
 
-@api.route("/", methods=['GET'])
+@api.route("/doc", methods=['GET'])
 def doc():
     return render_template("index.html")
 

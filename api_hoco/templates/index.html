@@ -1,716 +1,1243 @@
-
-<html>
-        
-
-    <head>
-        <meta charset="utf-8">
-        <title>HoCo-Documentation</title>
-        <link rel="stylesheet" type="text/css" href=/static/style.css>
-    </head>
-
-    
-    <body>
-        <h1 id="api-hoco"><strong>API HoCo</strong></h1>
-<p>API RESTful do projeto <a href="https://github.com/Guardians-DSC/HoCo">HoCo</a>, que dispõe de funcionalidades <em>CRUD</em> de um sistema para gerenciamento de horas complementares dos alunos da graduação de Ciência da Computação na UFCG.</p>
-<h2 id="funcionalidades-oferecidas-pela-api"><strong>Funcionalidades oferecidas pela API:</strong></h2>
-<h3 id="minhas-horas"><strong>Minhas horas</strong></h3>
-<ul>
-<li><a href="#recupera-o-total-de-creditos-do-aluno"><strong>Recupera o total de créditos do aluno</strong></a></li>
-<li><a href="#recupera-o-total-de-creditos-por-categoria-do-aluno"><strong>Recupera o total de créditos por categoria do aluno</strong></a></li>
-<li><a href="#recupera-as-4-categorias-com-o-maior-numero-de-creditos-do-aluno"><strong>Recupera as 4 categorias com o maior número de créditos do aluno</strong></a></li>
-</ul>
-<h3 id="minhas-atividades"><strong>Minhas atividades</strong></h3>
-<ul>
-<li><a href="#cadastra-uma-atividade-do-aluno"><strong>Cadastra uma atividade do aluno</strong></a></li>
-<li><a href="#lista-as-atividades-cadastradas-do-aluno"><strong>Lista as atividades cadastradas do aluno</strong></a></li>
-<li><a href="#edita-uma-atividade-do-aluno"><strong>Edita uma atividade do aluno</strong></a></li>
-<li><a href="#remove-uma-atividade-do-aluno"><strong>Remove uma atividade do aluno</strong></a></li>
-</ul>
-<h3 id="organizacoes"><strong>Organizações</strong></h3>
-<ul>
-<li><a href="#cadastra-uma-organizacao-do-curso"><strong>Cadastra uma organização do curso</strong></a></li>
-<li><a href="#lista-as-organizacoes-do-curso"><strong>Lista as organizações do curso</strong></a></li>
-<li><a href="#remove-uma-organizaçao-do-curso"><strong>Remove uma organização do curso</strong></a></li>
-</ul>
-<h3 id="duvidas"><strong>Dúvidas</strong></h3>
-<ul>
-<li><a href="#cadastra-uma-duvida"><strong>Cadastra uma dúvida</strong></a></li>
-<li><a href="#lista-as-duvidas"><strong>Lista as dúvidas</strong></a></li>
-<li><a href="#remove-uma-duvida"><strong>Remove uma dúvida</strong></a></li>
-</ul>
-<h2 id="recupera-o-total-de-creditos-do-aluno">Recupera o total de creditos do aluno</h2>
-<p>Retorna um <em>JSON</em> contendo o número de créditos atual do aluno e o número máximo de créditos necessários no curso.</p>
-<h4 id="url">URL</h4>
-<pre class="codehilite"><code>GET /creditos
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   HoCo-Documentation
+  </title>
+  <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+ </head>
+ <body>
+  <h1 id="api-hoco">
+   <strong>
+    API HoCo
+   </strong>
+  </h1>
+  <p>
+   API RESTful do projeto
+   <a href="https://github.com/Guardians-DSC/HoCo">
+    HoCo
+   </a>
+   , que dispõe de funcionalidades
+   <em>
+    CRUD
+   </em>
+   de um sistema para gerenciamento de horas complementares dos alunos da graduação de Ciência da Computação na UFCG.
+  </p>
+  <h2 id="funcionalidades-oferecidas-pela-api">
+   <strong>
+    Funcionalidades oferecidas pela API:
+   </strong>
+  </h2>
+  <h3 id="minhas-horas">
+   <strong>
+    Minhas horas
+   </strong>
+  </h3>
+  <ul>
+   <li>
+    <a href="#recupera-o-total-de-creditos-do-aluno">
+     <strong>
+      Recupera o total de créditos do aluno
+     </strong>
+    </a>
+   </li>
+   <li>
+    <a href="#recupera-o-total-de-creditos-por-categoria-do-aluno">
+     <strong>
+      Recupera o total de créditos por categoria do aluno
+     </strong>
+    </a>
+   </li>
+   <li>
+    <a href="#recupera-as-4-categorias-com-o-maior-numero-de-creditos-do-aluno">
+     <strong>
+      Recupera as 4 categorias com o maior número de créditos do aluno
+     </strong>
+    </a>
+   </li>
+  </ul>
+  <h3 id="minhas-atividades">
+   <strong>
+    Minhas atividades
+   </strong>
+  </h3>
+  <ul>
+   <li>
+    <a href="#cadastra-uma-atividade-do-aluno">
+     <strong>
+      Cadastra uma atividade do aluno
+     </strong>
+    </a>
+   </li>
+   <li>
+    <a href="#lista-as-atividades-cadastradas-do-aluno">
+     <strong>
+      Lista as atividades cadastradas do aluno
+     </strong>
+    </a>
+   </li>
+   <li>
+    <a href="#edita-uma-atividade-do-aluno">
+     <strong>
+      Edita uma atividade do aluno
+     </strong>
+    </a>
+   </li>
+   <li>
+    <a href="#remove-uma-atividade-do-aluno">
+     <strong>
+      Remove uma atividade do aluno
+     </strong>
+    </a>
+   </li>
+  </ul>
+  <h3 id="organizacoes">
+   <strong>
+    Organizações
+   </strong>
+  </h3>
+  <ul>
+   <li>
+    <a href="#cadastra-uma-organizacao-do-curso">
+     <strong>
+      Cadastra uma organização do curso
+     </strong>
+    </a>
+   </li>
+   <li>
+    <a href="#lista-as-organizacoes-do-curso">
+     <strong>
+      Lista as organizações do curso
+     </strong>
+    </a>
+   </li>
+   <li>
+    <a href="#remove-uma-organizaçao-do-curso">
+     <strong>
+      Remove uma organização do curso
+     </strong>
+    </a>
+   </li>
+  </ul>
+  <h3 id="duvidas">
+   <strong>
+    Dúvidas
+   </strong>
+  </h3>
+  <ul>
+   <li>
+    <a href="#cadastra-uma-duvida">
+     <strong>
+      Cadastra uma dúvida
+     </strong>
+    </a>
+   </li>
+   <li>
+    <a href="#lista-as-duvidas">
+     <strong>
+      Lista as dúvidas
+     </strong>
+    </a>
+   </li>
+   <li>
+    <a href="#remove-uma-duvida">
+     <strong>
+      Remove uma dúvida
+     </strong>
+    </a>
+   </li>
+  </ul>
+  <h2 id="recupera-o-total-de-creditos-do-aluno">
+   Recupera o total de creditos do aluno
+  </h2>
+  <p>
+   Retorna um
+   <em>
+    JSON
+   </em>
+   contendo o número de créditos atual do aluno e o número máximo de créditos necessários no curso.
+  </p>
+  <h4 id="url">
+   URL
+  </h4>
+  <pre class="codehilite"><code>GET /creditos
 </code></pre>
-
-<p><strong>Exemplo</strong></p>
-<h4 id="request">Request</h4>
-<pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/creditos'
+  <p>
+   <strong>
+    Exemplo
+   </strong>
+  </p>
+  <h4 id="request">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/creditos'
 </code></pre>
-
-<h4 id="response">Response</h4>
-<pre class="codehilite"><code>Status: 200 OK
+  <h4 id="response">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 200 OK
 </code></pre>
-
-<pre class="codehilite"><code>{
-    &quot;creditos&quot;: 11,
-    &quot;maximo&quot;: 22
+  <pre class="codehilite"><code>{
+    "creditos": 11,
+    "maximo": 22
 }
 </code></pre>
-
-<h2 id="recupera-o-total-de-creditos-por-categoria-do-aluno">Recupera o total de creditos por categoria do aluno</h2>
-<p>Retorna uma lista contendo o total de créditos acumulados, por categoria, do aluno e o número máximo de créditos possíveis na categoria.</p>
-<h4 id="url_1">URL</h4>
-<pre class="codehilite"><code>GET /categorias/creditos
+  <h2 id="recupera-o-total-de-creditos-por-categoria-do-aluno">
+   Recupera o total de creditos por categoria do aluno
+  </h2>
+  <p>
+   Retorna uma lista contendo o total de créditos acumulados, por categoria, do aluno e o número máximo de créditos possíveis na categoria.
+  </p>
+  <h4 id="url_1">
+   URL
+  </h4>
+  <pre class="codehilite"><code>GET /categorias/creditos
 </code></pre>
-
-<p><strong>Exemplo</strong></p>
-<h4 id="request_1">Request</h4>
-<pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/categorias/creditos'
+  <p>
+   <strong>
+    Exemplo
+   </strong>
+  </p>
+  <h4 id="request_1">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/categorias/creditos'
 </code></pre>
-
-<h4 id="response_1">Response</h4>
-<pre class="codehilite"><code>Status: 200 OK
+  <h4 id="response_1">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 200 OK
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;categoria&quot;: &quot;Projeto&quot;,
-        &quot;acumulado&quot;: 16,
-        &quot;maximo&quot;: 16
+        "categoria": "Projeto",
+        "acumulado": 16,
+        "maximo": 16
     },
     {
-        &quot;categoria&quot;: &quot;Evento&quot;,
-        &quot;acumulado&quot;: 12,
-        &quot;maximo&quot;: 16
+        "categoria": "Evento",
+        "acumulado": 12,
+        "maximo": 16
     },
     {
-        &quot;categoria&quot;: &quot;Monitoria&quot;,
-        &quot;acumulado&quot;: 4,
-        &quot;maximo&quot;: 18
+        "categoria": "Monitoria",
+        "acumulado": 4,
+        "maximo": 18
     },
     {
-        &quot;categoria&quot;: &quot;Caesi&quot;,
-        &quot;acumulado&quot;: 2,
-        &quot;maximo&quot;: 4
+        "categoria": "Caesi",
+        "acumulado": 2,
+        "maximo": 4
     }
 ]
 </code></pre>
-
-<h2 id="recupera-as-4-categorias-com-o-maior-numero-de-creditos-do-aluno">Recupera as 4 categorias com o maior numero de creditos do aluno</h2>
-<p>Retorna uma lista contendo as quatro categorias com o maior número de créditos do aluno, ordenadas pela porcentagem.</p>
-<h4 id="url_2">URL</h4>
-<pre class="codehilite"><code>GET /categorias/top
+  <h2 id="recupera-as-4-categorias-com-o-maior-numero-de-creditos-do-aluno">
+   Recupera as 4 categorias com o maior numero de creditos do aluno
+  </h2>
+  <p>
+   Retorna uma lista contendo as quatro categorias com o maior número de créditos do aluno, ordenadas pela porcentagem.
+  </p>
+  <h4 id="url_2">
+   URL
+  </h4>
+  <pre class="codehilite"><code>GET /categorias/top
 </code></pre>
-
-<p><strong>Exemplo</strong></p>
-<h4 id="request_2">Request</h4>
-<pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/categorias/top'
+  <p>
+   <strong>
+    Exemplo
+   </strong>
+  </p>
+  <h4 id="request_2">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/categorias/top'
 </code></pre>
-
-<h4 id="response_2">Response</h4>
-<pre class="codehilite"><code>Status: 200 OK
+  <h4 id="response_2">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 200 OK
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;categoria&quot;: &quot;Projeto&quot;,
-        &quot;porcentagem&quot;: 0.45
+        "categoria": "Projeto",
+        "porcentagem": 0.45
     },
     {
-        &quot;categoria&quot;: &quot;Evento&quot;,
-        &quot;porcentagem&quot;: 0.20
+        "categoria": "Evento",
+        "porcentagem": 0.20
     },
     {
-        &quot;categoria&quot;: &quot;Monitoria&quot;,
-        &quot;porcentagem&quot;: 0.10
+        "categoria": "Monitoria",
+        "porcentagem": 0.10
     },
     {
-        &quot;categoria&quot;: &quot;Caesi&quot;,
-        &quot;porcentagem&quot;: 0.10
+        "categoria": "Caesi",
+        "porcentagem": 0.10
     }
 ]
 </code></pre>
-
-<h2 id="cadastra-uma-atividade-do-aluno">Cadastra uma atividade do aluno</h2>
-<p>Adiciona no banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades adicionadas do aluno. A requisição deve enviar no body um <em>JSON</em> com os campos <code>titulo</code>, <code>creditos</code>, <code>horas</code> e <code>categoria</code>.</p>
-<h4 id="url_3">URL</h4>
-<pre class="codehilite"><code>POST /atividade
+  <h2 id="cadastra-uma-atividade-do-aluno">
+   Cadastra uma atividade do aluno
+  </h2>
+  <p>
+   Adiciona no banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades adicionadas do aluno. A requisição deve enviar no body um
+   <em>
+    JSON
+   </em>
+   com os campos
+   <code>
+    titulo
+   </code>
+   ,
+   <code>
+    creditos
+   </code>
+   ,
+   <code>
+    horas
+   </code>
+   e
+   <code>
+    categoria
+   </code>
+   .
+  </p>
+  <h4 id="url_3">
+   URL
+  </h4>
+  <pre class="codehilite"><code>POST /atividade
 </code></pre>
-
-<h4 id="body">Body</h4>
-<table>
-<thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Requirement</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>titulo</code></td>
-<td>String</td>
-<td>obrigatório</td>
-<td>o nome da atividade.</td>
-</tr>
-<tr>
-<td><code>creditos</code></td>
-<td>int</td>
-<td>obrigatório</td>
-<td>os créditos obtidos na atividade.</td>
-</tr>
-<tr>
-<td><code>horas</code></td>
-<td>int</td>
-<td>obrigatório</td>
-<td>as horas gastas na atividade.</td>
-</tr>
-<tr>
-<td><code>categoria</code></td>
-<td>String</td>
-<td>obrigatório</td>
-<td>a categoria da atividade.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Exemplos</strong></p>
-<h4 id="request_3">Request</h4>
-<pre class="codehilite"><code>curl -L -X POST 'https://hoco.netlify.app/atividade' \
+  <h4 id="body">
+   Body
+  </h4>
+  <table>
+   <thead>
+    <tr>
+     <th>
+      Parameters
+     </th>
+     <th>
+      Type
+     </th>
+     <th>
+      Requirement
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>
+      <code>
+       titulo
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      o nome da atividade.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       creditos
+      </code>
+     </td>
+     <td>
+      int
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      os créditos obtidos na atividade.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       horas
+      </code>
+     </td>
+     <td>
+      int
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      as horas gastas na atividade.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       categoria
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      a categoria da atividade.
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <strong>
+    Exemplos
+   </strong>
+  </p>
+  <h4 id="request_3">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X POST 'https://hoco.netlify.app/atividade' \
 -H 'Content-Type: application/json' \
 --data-raw '{
-        &quot;titulo&quot;: &quot;projeto ePol&quot;,
-        &quot;creditos&quot;: 10,
-        &quot;categoria&quot;: &quot;Projeto&quot;
+        "titulo": "projeto ePol",
+        "creditos": 10,
+        "categoria": "Projeto"
     }
 }'
 </code></pre>
-
-<h4 id="response_3">Response</h4>
-<pre class="codehilite"><code>Status: 201 CREATED
+  <h4 id="response_3">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 201 CREATED
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;id:&quot;: 129087124908,
-        &quot;titulo&quot;: &quot;projeto ePol&quot;,
-        &quot;creditos&quot;: 10,
-        &quot;horas&quot;: 950,
-        &quot;categoria&quot;: &quot;Projeto&quot;
+        "id:": 129087124908,
+        "titulo": "projeto ePol",
+        "creditos": 10,
+        "horas": 950,
+        "categoria": "Projeto"
     },
     {
-        &quot;id:&quot;: 129087124901,
-        &quot;titulo&quot;: &quot;CodeSQ&quot;,
-        &quot;creditos&quot;: 4,
-        &quot;horas&quot;: 320,
-        &quot;categoria&quot;: &quot;Projeto&quot;
+        "id:": 129087124901,
+        "titulo": "CodeSQ",
+        "creditos": 4,
+        "horas": 320,
+        "categoria": "Projeto"
     },
     {
-        &quot;id:&quot;: 132312312312,
-        &quot;titulo&quot;: &quot;Andromedev&quot;,
-        &quot;horas&quot;: 135,
-        &quot;categoria&quot;: &quot;Evento&quot;
+        "id:": 132312312312,
+        "titulo": "Andromedev",
+        "horas": 135,
+        "categoria": "Evento"
     }
 ]
 </code></pre>
-
-<h2 id="lista-as-atividades-cadastradas-do-aluno">Lista as atividades cadastradas do aluno</h2>
-<p>Retorna uma lista contendo todas as atividades adicionadas do aluno.</p>
-<h4 id="url_4">URL</h4>
-<pre class="codehilite"><code>GET /atividades
+  <h2 id="lista-as-atividades-cadastradas-do-aluno">
+   Lista as atividades cadastradas do aluno
+  </h2>
+  <p>
+   Retorna uma lista contendo todas as atividades adicionadas do aluno.
+  </p>
+  <h4 id="url_4">
+   URL
+  </h4>
+  <pre class="codehilite"><code>GET /atividades
 </code></pre>
-
-<p><strong>Exemplo</strong></p>
-<h4 id="request_4">Request</h4>
-<pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/atividades'
+  <p>
+   <strong>
+    Exemplo
+   </strong>
+  </p>
+  <h4 id="request_4">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/atividades'
 </code></pre>
-
-<h4 id="response_4">Response</h4>
-<pre class="codehilite"><code>Status: 200 OK
+  <h4 id="response_4">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 200 OK
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;id:&quot;: 129087124908,
-        &quot;titulo&quot;: &quot;projeto ePol&quot;,
-        &quot;creditos&quot;: 10,
-        &quot;horas&quot;: 950,
-        &quot;categoria&quot;: &quot;Projeto&quot;
+        "id:": 129087124908,
+        "titulo": "projeto ePol",
+        "creditos": 10,
+        "horas": 950,
+        "categoria": "Projeto"
     },
     {
-        &quot;id:&quot;: 129087124901,
-        &quot;titulo&quot;: &quot;CodeSQ&quot;,
-        &quot;creditos&quot;: 4,
-        &quot;horas&quot;: 320,
-        &quot;categoria&quot;: &quot;Projeto&quot;
+        "id:": 129087124901,
+        "titulo": "CodeSQ",
+        "creditos": 4,
+        "horas": 320,
+        "categoria": "Projeto"
     },
     {
-        &quot;id:&quot;: 132312312312,
-        &quot;titulo&quot;: &quot;Andromedev&quot;,
-        &quot;horas&quot;: 135,
-        &quot;categoria&quot;: &quot;Evento&quot;
+        "id:": 132312312312,
+        "titulo": "Andromedev",
+        "horas": 135,
+        "categoria": "Evento"
     }
 ]
 </code></pre>
-
-<h2 id="edita-uma-atividade-do-aluno">Edita uma atividade do aluno</h2>
-<p>Atualiza no banco de dados as informações de uma atividade do aluno e retorna uma lista contendo todas as atividades atuais do aluno. O ID da atividade deve ser informado na URL. A requisição deve enviar no body um <em>JSON</em> contendo os campos de possível edição, sendo estes: <code>titulo</code>, <code>creditos</code>, <code>horas</code> e <code>categoria</code>.</p>
-<h4 id="url_5">URL</h4>
-<pre class="codehilite"><code>PATCH /atividade?id=&lt;atividade_id&gt;
+  <h2 id="edita-uma-atividade-do-aluno">
+   Edita uma atividade do aluno
+  </h2>
+  <p>
+   Atualiza no banco de dados as informações de uma atividade do aluno e retorna uma lista contendo todas as atividades atuais do aluno. O ID da atividade deve ser informado na URL. A requisição deve enviar no body um
+   <em>
+    JSON
+   </em>
+   contendo os campos de possível edição, sendo estes:
+   <code>
+    titulo
+   </code>
+   ,
+   <code>
+    creditos
+   </code>
+   ,
+   <code>
+    horas
+   </code>
+   e
+   <code>
+    categoria
+   </code>
+   .
+  </p>
+  <h4 id="url_5">
+   URL
+  </h4>
+  <pre class="codehilite"><code>PATCH /atividade?id=&lt;atividade_id&gt;
 </code></pre>
-
-<table>
-<thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Requirement</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>atividade_id</code></td>
-<td>String</td>
-<td>obrigatório</td>
-<td>o id da atividade.</td>
-</tr>
-</tbody>
-</table>
-<h4 id="body_1">Body</h4>
-<table>
-<thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Requirement</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>titulo</code></td>
-<td>String</td>
-<td>opcional</td>
-<td>o nome da atividade.</td>
-</tr>
-<tr>
-<td><code>creditos</code></td>
-<td>int</td>
-<td>opcional</td>
-<td>os créditos obtidos na atividade.</td>
-</tr>
-<tr>
-<td><code>horas</code></td>
-<td>int</td>
-<td>opcional</td>
-<td>as horas gastas na atividade.</td>
-</tr>
-<tr>
-<td><code>categoria</code></td>
-<td>String</td>
-<td>opcional</td>
-<td>a categoria da atividade.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Exemplos</strong></p>
-<h4 id="request_5">Request</h4>
-<pre class="codehilite"><code>curl -L -X PATCH 'https://hoco.netlify.app/atividade?id=129087124908' \
+  <table>
+   <thead>
+    <tr>
+     <th>
+      Parameters
+     </th>
+     <th>
+      Type
+     </th>
+     <th>
+      Requirement
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>
+      <code>
+       atividade_id
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      o id da atividade.
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h4 id="body_1">
+   Body
+  </h4>
+  <table>
+   <thead>
+    <tr>
+     <th>
+      Parameters
+     </th>
+     <th>
+      Type
+     </th>
+     <th>
+      Requirement
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>
+      <code>
+       titulo
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      opcional
+     </td>
+     <td>
+      o nome da atividade.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       creditos
+      </code>
+     </td>
+     <td>
+      int
+     </td>
+     <td>
+      opcional
+     </td>
+     <td>
+      os créditos obtidos na atividade.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       horas
+      </code>
+     </td>
+     <td>
+      int
+     </td>
+     <td>
+      opcional
+     </td>
+     <td>
+      as horas gastas na atividade.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       categoria
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      opcional
+     </td>
+     <td>
+      a categoria da atividade.
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <strong>
+    Exemplos
+   </strong>
+  </p>
+  <h4 id="request_5">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X PATCH 'https://hoco.netlify.app/atividade?id=129087124908' \
 -H 'Content-Type: application/json' \
 --data-raw '{
-    &quot;creditos&quot;: 12
+    "creditos": 12
 }'
 </code></pre>
-
-<h4 id="response_5">Response</h4>
-<pre class="codehilite"><code>Status: 200 OK
+  <h4 id="response_5">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 200 OK
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;id:&quot;: 129087124908,
-        &quot;titulo&quot;: &quot;projeto ePol&quot;,
-        &quot;creditos&quot;: 12,
-        &quot;horas&quot;: 950,
-        &quot;categoria&quot;: &quot;Projeto&quot;
+        "id:": 129087124908,
+        "titulo": "projeto ePol",
+        "creditos": 12,
+        "horas": 950,
+        "categoria": "Projeto"
     },
     {
-        &quot;id:&quot;: 129087124901,
-        &quot;titulo&quot;: &quot;CodeSQ&quot;,
-        &quot;creditos&quot;: 4,
-        &quot;horas&quot;: 320,
-        &quot;categoria&quot;: &quot;Projeto&quot;
+        "id:": 129087124901,
+        "titulo": "CodeSQ",
+        "creditos": 4,
+        "horas": 320,
+        "categoria": "Projeto"
     },
     {
-        &quot;id:&quot;: 132312312312,
-        &quot;titulo&quot;: &quot;Andromedev&quot;,
-        &quot;horas&quot;: 135,
-        &quot;categoria&quot;: &quot;Evento&quot;
+        "id:": 132312312312,
+        "titulo": "Andromedev",
+        "horas": 135,
+        "categoria": "Evento"
     }
 ]
 </code></pre>
-
-<h2 id="remove-uma-atividade-do-aluno">Remove uma atividade do aluno</h2>
-<p>Deleta do banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades restantes do aluno. O ID da atividade deve ser informado na URL.</p>
-<h4 id="url_6">URL</h4>
-<pre class="codehilite"><code>DELETE /atividade?id=&lt;atividade_id&gt;
+  <h2 id="remove-uma-atividade-do-aluno">
+   Remove uma atividade do aluno
+  </h2>
+  <p>
+   Deleta do banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades restantes do aluno. O ID da atividade deve ser informado na URL.
+  </p>
+  <h4 id="url_6">
+   URL
+  </h4>
+  <pre class="codehilite"><code>DELETE /atividade?id=&lt;atividade_id&gt;
 </code></pre>
-
-<table>
-<thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Requirement</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>atividade_id</code></td>
-<td>String</td>
-<td>obrigatório</td>
-<td>o id da atividade.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Exemplos</strong></p>
-<h4 id="request_6">Request</h4>
-<pre class="codehilite"><code>curl -L -X DELETE 'https://hoco.netlify.app/atividade?id=129087124908'
+  <table>
+   <thead>
+    <tr>
+     <th>
+      Parameters
+     </th>
+     <th>
+      Type
+     </th>
+     <th>
+      Requirement
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>
+      <code>
+       atividade_id
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      o id da atividade.
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <strong>
+    Exemplos
+   </strong>
+  </p>
+  <h4 id="request_6">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X DELETE 'https://hoco.netlify.app/atividade?id=129087124908'
 </code></pre>
-
-<h4 id="response_6">Response</h4>
-<pre class="codehilite"><code>Status: 200 OK
+  <h4 id="response_6">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 200 OK
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;id:&quot;: 129087124901,
-        &quot;titulo&quot;: &quot;CodeSQ&quot;,
-        &quot;creditos&quot;: 4,
-        &quot;categoria&quot;: &quot;Projeto&quot;
+        "id:": 129087124901,
+        "titulo": "CodeSQ",
+        "creditos": 4,
+        "categoria": "Projeto"
     },
     {
-        &quot;id:&quot;: 132312312312,
-        &quot;titulo&quot;: &quot;Andromedev&quot;,
-        &quot;horas&quot;: 135,
-        &quot;categoria&quot;: &quot;Evento&quot;
+        "id:": 132312312312,
+        "titulo": "Andromedev",
+        "horas": 135,
+        "categoria": "Evento"
     }
 ]
 </code></pre>
-
-<h2 id="cadastra-uma-organizacao-do-curso">Cadastra uma organização do curso</h2>
-<p>Adiciona no banco de dados uma organização do curso e retorna uma lista contendo todas as organizações adicionadas do curso. A requisição deve enviar no body um <em>JSON</em> com o campo <code>organizacao</code>.</p>
-<h4 id="url_7">URL</h4>
-<pre class="codehilite"><code>POST /organizacao
+  <h2 id="cadastra-uma-organizacao-do-curso">
+   Cadastra uma organização do curso
+  </h2>
+  <p>
+   Adiciona no banco de dados uma organização do curso e retorna uma lista contendo todas as organizações adicionadas do curso. A requisição deve enviar no body um
+   <em>
+    JSON
+   </em>
+   com o campo
+   <code>
+    organizacao
+   </code>
+   .
+  </p>
+  <h4 id="url_7">
+   URL
+  </h4>
+  <pre class="codehilite"><code>POST /organizacao
 </code></pre>
-
-<h4 id="body_2">Body</h4>
-<table>
-<thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Requirement</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>organizacao</code></td>
-<td>String</td>
-<td>obrigatório</td>
-<td>o nome da organização.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Exemplos</strong></p>
-<h4 id="request_7">Request</h4>
-<pre class="codehilite"><code>curl -L -X POST 'https://hoco.netlify.app/organizacao' \
+  <h4 id="body_2">
+   Body
+  </h4>
+  <table>
+   <thead>
+    <tr>
+     <th>
+      Parameters
+     </th>
+     <th>
+      Type
+     </th>
+     <th>
+      Requirement
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>
+      <code>
+       organizacao
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      o nome da organização.
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <strong>
+    Exemplos
+   </strong>
+  </p>
+  <h4 id="request_7">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X POST 'https://hoco.netlify.app/organizacao' \
 -H 'Content-Type: application/json' \
 --data-raw '{
-        &quot;organizacao&quot;: &quot;OpenDevUFCG&quot;
+        "organizacao": "OpenDevUFCG"
     }
 }'
 </code></pre>
-
-<h4 id="response_7">Response</h4>
-<pre class="codehilite"><code>Status: 201 CREATED
+  <h4 id="response_7">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 201 CREATED
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;id&quot;: 122,
-        &quot;organizacao&quot;: &quot;OpenDevUFCG&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "id": 122,
+        "organizacao": "OpenDevUFCG",
+        "imagem": "img.jpg"
     },
     {
-        &quot;id&quot;: 123,
-        &quot;organizacao&quot;: &quot;Pet@Computação&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "id": 123,
+        "organizacao": "Pet@Computação",
+        "imagem": "img.jpg"
     },
     {
-        &quot;id&quot;: 124,
-        &quot;organizacao&quot;: &quot;Caesi&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "id": 124,
+        "organizacao": "Caesi",
+        "imagem": "img.jpg"
     },
     {
-        &quot;id&quot;: 125,
-        &quot;organizacao&quot;: &quot;Guardians&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "id": 125,
+        "organizacao": "Guardians",
+        "imagem": "img.jpg"
     },
     {
-        &quot;id&quot;: 126,
-        &quot;organizacao&quot;: &quot;Elas@Computação&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "id": 126,
+        "organizacao": "Elas@Computação",
+        "imagem": "img.jpg"
     }
 ]
 </code></pre>
-
-<h2 id="lista-as-organizacoes-do-curso">Lista as organizacoes do curso</h2>
-<p>Retorna uma lista contendo todas as organizações adicionadas do curso.</p>
-<h4 id="url_8">URL</h4>
-<pre class="codehilite"><code>GET /organizacoes
+  <h2 id="lista-as-organizacoes-do-curso">
+   Lista as organizacoes do curso
+  </h2>
+  <p>
+   Retorna uma lista contendo todas as organizações adicionadas do curso.
+  </p>
+  <h4 id="url_8">
+   URL
+  </h4>
+  <pre class="codehilite"><code>GET /organizacoes
 </code></pre>
-
-<p><strong>Exemplo</strong></p>
-<h4 id="request_8">Request</h4>
-<pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/organizacoes'
+  <p>
+   <strong>
+    Exemplo
+   </strong>
+  </p>
+  <h4 id="request_8">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/organizacoes'
 </code></pre>
-
-<h4 id="response_8">Response</h4>
-<pre class="codehilite"><code>Status: 200 OK
+  <h4 id="response_8">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 200 OK
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;organizacao&quot;: &quot;OpenDevUFCG&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "organizacao": "OpenDevUFCG",
+        "imagem": "img.jpg"
     },
     {
-        &quot;organizacao&quot;: &quot;Pet@Computação&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "organizacao": "Pet@Computação",
+        "imagem": "img.jpg"
     },
     {
-        &quot;organizacao&quot;: &quot;Caesi&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "organizacao": "Caesi",
+        "imagem": "img.jpg"
     },
     {
-        &quot;organizacao&quot;: &quot;Guardians&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "organizacao": "Guardians",
+        "imagem": "img.jpg"
     },
     {
-        &quot;organizacao&quot;: &quot;Elas@Computação&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "organizacao": "Elas@Computação",
+        "imagem": "img.jpg"
     }
 ]
 </code></pre>
-
-<h2 id="remove-uma-organizacao-do-curso">Remove uma organizacao do curso</h2>
-<p>Deleta do banco de dados uma organização do curso e retorna uma lista contendo todas as organizações restantes do curso. O ID da organização deve ser informado na URL.</p>
-<h4 id="url_9">URL</h4>
-<pre class="codehilite"><code>DELETE /organizacao?id=&lt;organizacao_id&gt;
+  <h2 id="remove-uma-organizacao-do-curso">
+   Remove uma organizacao do curso
+  </h2>
+  <p>
+   Deleta do banco de dados uma organização do curso e retorna uma lista contendo todas as organizações restantes do curso. O ID da organização deve ser informado na URL.
+  </p>
+  <h4 id="url_9">
+   URL
+  </h4>
+  <pre class="codehilite"><code>DELETE /organizacao?id=&lt;organizacao_id&gt;
 </code></pre>
-
-<table>
-<thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Requirement</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>organizacao_id</code></td>
-<td>String</td>
-<td>obrigatório</td>
-<td>o id da organização.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Exemplos</strong></p>
-<h4 id="request_9">Request</h4>
-<pre class="codehilite"><code>curl -L -X DELETE 'https://hoco.netlify.app/organizacao?id=123'
+  <table>
+   <thead>
+    <tr>
+     <th>
+      Parameters
+     </th>
+     <th>
+      Type
+     </th>
+     <th>
+      Requirement
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>
+      <code>
+       organizacao_id
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      o id da organização.
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <strong>
+    Exemplos
+   </strong>
+  </p>
+  <h4 id="request_9">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X DELETE 'https://hoco.netlify.app/organizacao?id=123'
 </code></pre>
-
-<h4 id="response_9">Response</h4>
-<pre class="codehilite"><code>Status: 200 OK
+  <h4 id="response_9">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 200 OK
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;id&quot;: 122,
-        &quot;organizacao&quot;: &quot;OpenDevUFCG&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "id": 122,
+        "organizacao": "OpenDevUFCG",
+        "imagem": "img.jpg"
     },
     {
-        &quot;id&quot;: 124,
-        &quot;organizacao&quot;: &quot;Caesi&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "id": 124,
+        "organizacao": "Caesi",
+        "imagem": "img.jpg"
     },
     {
-        &quot;id&quot;: 125,
-        &quot;organizacao&quot;: &quot;Guardians&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "id": 125,
+        "organizacao": "Guardians",
+        "imagem": "img.jpg"
     },
     {
-        &quot;id&quot;: 126,
-        &quot;organizacao&quot;: &quot;Elas@Computação&quot;,
-        &quot;imagem&quot;: &quot;img.jpg&quot;
+        "id": 126,
+        "organizacao": "Elas@Computação",
+        "imagem": "img.jpg"
     }
 ]
 </code></pre>
-
-<h2 id="cadastra-uma-duvida">Cadastra uma duvida</h2>
-<p>Adiciona no banco de dados uma dúvida sobre o curso com a respectiva resposta e retorna uma lista contendo todas as dúvidas adicionadas sobre o curso. A requisição deve enviar no body um <em>JSON</em> com os campos <code>pergunta</code> e <code>resposta</code>.</p>
-<h4 id="url_10">URL</h4>
-<pre class="codehilite"><code>POST /duvida
+  <h2 id="cadastra-uma-duvida">
+   Cadastra uma duvida
+  </h2>
+  <p>
+   Adiciona no banco de dados uma dúvida sobre o curso com a respectiva resposta e retorna uma lista contendo todas as dúvidas adicionadas sobre o curso. A requisição deve enviar no body um
+   <em>
+    JSON
+   </em>
+   com os campos
+   <code>
+    pergunta
+   </code>
+   e
+   <code>
+    resposta
+   </code>
+   .
+  </p>
+  <h4 id="url_10">
+   URL
+  </h4>
+  <pre class="codehilite"><code>POST /duvida
 </code></pre>
-
-<h4 id="body_3">Body</h4>
-<table>
-<thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Requirement</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>pergunta</code></td>
-<td>String</td>
-<td>obrigatório</td>
-<td>a dúvida sobre o curso.</td>
-</tr>
-<tr>
-<td><code>resposta</code></td>
-<td>String</td>
-<td>obrigatório</td>
-<td>a resposta da dúvida sobre o curso.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Exemplos</strong></p>
-<h4 id="request_10">Request</h4>
-<pre class="codehilite"><code>curl -L -X POST 'https://hoco.netlify.app/duvida' \
+  <h4 id="body_3">
+   Body
+  </h4>
+  <table>
+   <thead>
+    <tr>
+     <th>
+      Parameters
+     </th>
+     <th>
+      Type
+     </th>
+     <th>
+      Requirement
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>
+      <code>
+       pergunta
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      a dúvida sobre o curso.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       resposta
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      a resposta da dúvida sobre o curso.
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <strong>
+    Exemplos
+   </strong>
+  </p>
+  <h4 id="request_10">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X POST 'https://hoco.netlify.app/duvida' \
 -H 'Content-Type: application/json' \
 --data-raw '{
-        &quot;pergunta&quot;: &quot;[a pergunta aqui]&quot;,
-        &quot;resposta&quot;: &quot;[a resposta aqui]&quot;
+        "pergunta": "[a pergunta aqui]",
+        "resposta": "[a resposta aqui]"
     }
 }'
 </code></pre>
-
-<h4 id="response_10">Response</h4>
-<pre class="codehilite"><code>Status: 201 CREATED
+  <h4 id="response_10">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 201 CREATED
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;id&quot;: 12345,
-        &quot;pergunta&quot;: &quot;[a pergunta aqui]&quot;,
-        &quot;resposta&quot;: &quot;[a resposta aqui]&quot;
+        "id": 12345,
+        "pergunta": "[a pergunta aqui]",
+        "resposta": "[a resposta aqui]"
     },
     {
-        &quot;id&quot;: 12678,
-        &quot;pergunta&quot;: &quot;[a pergunta aqui]&quot;,
-        &quot;resposta&quot;: &quot;[a resposta aqui]&quot;
+        "id": 12678,
+        "pergunta": "[a pergunta aqui]",
+        "resposta": "[a resposta aqui]"
     },
     {
-        &quot;id&quot;: 12901,
-        &quot;pergunta&quot;: &quot;[a pergunta aqui]&quot;,
-        &quot;resposta&quot;: &quot;[a resposta aqui]&quot;
+        "id": 12901,
+        "pergunta": "[a pergunta aqui]",
+        "resposta": "[a resposta aqui]"
     }
 ]
 </code></pre>
-
-<h2 id="lista-as-duvidas">Lista as duvidas</h2>
-<p>Retorna uma lista contendo todas as dúvidas adicionadas sobre o curso.</p>
-<h4 id="url_11">URL</h4>
-<pre class="codehilite"><code>GET /duvidas
+  <h2 id="lista-as-duvidas">
+   Lista as duvidas
+  </h2>
+  <p>
+   Retorna uma lista contendo todas as dúvidas adicionadas sobre o curso.
+  </p>
+  <h4 id="url_11">
+   URL
+  </h4>
+  <pre class="codehilite"><code>GET /duvidas
 </code></pre>
-
-<p><strong>Exemplo</strong></p>
-<h4 id="request_11">Request</h4>
-<pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/duvidas'
+  <p>
+   <strong>
+    Exemplo
+   </strong>
+  </p>
+  <h4 id="request_11">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/duvidas'
 </code></pre>
-
-<h4 id="response_11">Response</h4>
-<pre class="codehilite"><code>Status: 200 OK
+  <h4 id="response_11">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 200 OK
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;id&quot;: 12345,
-        &quot;pergunta&quot;: &quot;[a pergunta aqui]&quot;,
-        &quot;resposta&quot;: &quot;[a resposta aqui]&quot;
+        "id": 12345,
+        "pergunta": "[a pergunta aqui]",
+        "resposta": "[a resposta aqui]"
     },
     {
-        &quot;id&quot;: 12678,
-        &quot;pergunta&quot;: &quot;[a pergunta aqui]&quot;,
-        &quot;resposta&quot;: &quot;[a resposta aqui]&quot;
+        "id": 12678,
+        "pergunta": "[a pergunta aqui]",
+        "resposta": "[a resposta aqui]"
     },
     {
-        &quot;id&quot;: 12901,
-        &quot;pergunta&quot;: &quot;[a pergunta aqui]&quot;,
-        &quot;resposta&quot;: &quot;[a resposta aqui]&quot;
+        "id": 12901,
+        "pergunta": "[a pergunta aqui]",
+        "resposta": "[a resposta aqui]"
     }
 ]
 </code></pre>
-
-<h2 id="remove-uma-duvida">Remove uma duvida</h2>
-<p>Deleta do banco de dados uma dúvida sobre o curso e retorna uma lista contendo todas as dúvidas restantes sobre o curso. O ID da organização deve ser informado na URL.</p>
-<h4 id="url_12">URL</h4>
-<pre class="codehilite"><code>DELETE /duvida?id=&lt;duvida_id&gt;
+  <h2 id="remove-uma-duvida">
+   Remove uma duvida
+  </h2>
+  <p>
+   Deleta do banco de dados uma dúvida sobre o curso e retorna uma lista contendo todas as dúvidas restantes sobre o curso. O ID da organização deve ser informado na URL.
+  </p>
+  <h4 id="url_12">
+   URL
+  </h4>
+  <pre class="codehilite"><code>DELETE /duvida?id=&lt;duvida_id&gt;
 </code></pre>
-
-<table>
-<thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Requirement</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>duvida_id</code></td>
-<td>String</td>
-<td>obrigatório</td>
-<td>o id da organização.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Exemplos</strong></p>
-<h4 id="request_12">Request</h4>
-<pre class="codehilite"><code>curl -L -X DELETE 'https://hoco.netlify.app/duvida?id=12345'
+  <table>
+   <thead>
+    <tr>
+     <th>
+      Parameters
+     </th>
+     <th>
+      Type
+     </th>
+     <th>
+      Requirement
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>
+      <code>
+       duvida_id
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      o id da organização.
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <strong>
+    Exemplos
+   </strong>
+  </p>
+  <h4 id="request_12">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X DELETE 'https://hoco.netlify.app/duvida?id=12345'
 </code></pre>
-
-<h4 id="response_12">Response</h4>
-<pre class="codehilite"><code>Status: 200 OK
+  <h4 id="response_12">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 200 OK
 </code></pre>
-
-<pre class="codehilite"><code>[
+  <pre class="codehilite"><code>[
     {
-        &quot;id&quot;: 12678,
-        &quot;pergunta&quot;: &quot;[a pergunta aqui]&quot;,
-        &quot;resposta&quot;: &quot;[a resposta aqui]&quot;
+        "id": 12678,
+        "pergunta": "[a pergunta aqui]",
+        "resposta": "[a resposta aqui]"
     },
     {
-        &quot;id&quot;: 12901,
-        &quot;pergunta&quot;: &quot;[a pergunta aqui]&quot;,
-        &quot;resposta&quot;: &quot;[a resposta aqui]&quot;
+        "id": 12901,
+        "pergunta": "[a pergunta aqui]",
+        "resposta": "[a resposta aqui]"
     }
 ]
 </code></pre>
-    </body>
+ </body>
 </html>
-    
