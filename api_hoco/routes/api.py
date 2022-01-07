@@ -1,10 +1,10 @@
-from os import getcwd
-from flask import Blueprint, jsonify, render_template
+from flask import Blueprint, jsonify, render_template, request
 from datetime import datetime
+from api_hoco.controllers.organization import register_org
 
-api = Blueprint('api', __name__, template_folder='templates')
+api_blueprints = Blueprint('api', __name__, template_folder='templates')
 
-@api.route("/status", methods=['GET'])
+@api_blueprints.route("/status", methods=['GET'])
 def status():
     '''Retorna um simples json com status 200'''
     current_timestamp = datetime.now()
@@ -17,7 +17,21 @@ def status():
     }
     return jsonify(status), 200
 
-@api.route("/doc", methods=['GET'])
+@api_blueprints.route("/doc", methods=['GET'])
 def doc():
     return render_template("index.html")
+
+@api_blueprints.route('/org', methods=['POST'])
+def create_org():
+    req = request.form
+
+    name = req.get('name')
+    github_url = req.get('github_url')
+
+    image = request.files['image']
+    result = register_org(name, github_url, image)
+    return jsonify(result), 201
+
+
+
 
