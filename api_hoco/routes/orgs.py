@@ -9,6 +9,3 @@ def create_org():
     result = register_org(request)
     return result
 
-
-
-

@@ -6,3 +6,4 @@ class MyJsonify(json.JSONEncoder):
         if isinstance(obj, ObjectId):
             return str(obj)
         return super(MyEncoder, self).default(obj) 
+

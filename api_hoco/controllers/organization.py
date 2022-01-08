@@ -4,6 +4,12 @@ from api_hoco.util.errors import input_not_given
 
 
 def register_org(request):
+    '''
+        Controller function to register new organizations by it's name, given url and image of it's logo.
+
+        Parameters:
+        -> request - (Flask.Request): Request object that contains all the data passed in the request.
+    '''
     req_form = request.form
 
     org_image = request.files['image']
@@ -22,10 +28,4 @@ def register_org(request):
         return make_response(jsonify(resultado), 201)
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)
-        
-
-
-    
-
-
 

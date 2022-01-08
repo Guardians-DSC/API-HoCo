@@ -5,7 +5,7 @@ api_blueprints = Blueprint('api', __name__, template_folder='templates')
 
 @api_blueprints.route("/status", methods=['GET'])
 def status():
-    '''Retorna um simples json com status 200'''
+    '''Returns the API status'''
     current_timestamp = datetime.now()
 
     status = {
@@ -18,5 +18,6 @@ def status():
 
 @api_blueprints.route("/doc", methods=['GET'])
 def doc():
+    '''Render the API documentation'''
     return render_template("index.html")
 

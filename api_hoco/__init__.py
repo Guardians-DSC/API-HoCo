@@ -1,7 +1,6 @@
 from flask import Flask
 from api_hoco.util.util import MyJsonify
 
-
 def create_app():
     app = Flask(__name__)
     app.json_encoder = MyJsonify
