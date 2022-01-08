@@ -379,25 +379,29 @@ Adiciona no banco de dados uma organização do curso e retorna uma lista conten
 #### URL
 
 ```
-POST /organizacao
+POST /org
 ```
 
 #### Body
 
+**Content-type**: Multipart Form
+
 | Parameters | Type | Requirement | Description |
 |---|---|---|---|
-| `organizacao` | String | obrigatório | o nome da organização. |
+| `name` | String | obrigatório | o nome da organização. |
+| `org_url` | String | obrigatório | Url de acesso da organização na web. |
+| `image` | File | obrigatório | Arquivo de imagem representante da organização |
 
 **Exemplos**
 
 #### Request
 
 ```
-curl -L -X POST 'https://hoco.netlify.app/organizacao' \
--H 'Content-Type: application/json' \
---data-raw '{
-	    "organizacao": "OpenDevUFCG"
-    }
+curl -L -X POST 'https://hoco.netlify.app/org' \
+	-H 'Content-Type: form-data' \
+	-F name='nome'\
+	-F org_url=url'\
+	-F image <caminho/para/arquivo>
 }'
 ```
 
@@ -407,33 +411,13 @@ curl -L -X POST 'https://hoco.netlify.app/organizacao' \
 Status: 201 CREATED
 ```
 ```
-[
-	{
-		"id": 122,
-		"organizacao": "OpenDevUFCG",
-		"imagem": "img.jpg"
-	},
-	{
-		"id": 123,
-		"organizacao": "Pet@Computação",
-		"imagem": "img.jpg"
-	},
-	{
-		"id": 124,
-		"organizacao": "Caesi",
-		"imagem": "img.jpg"
-	},
-	{
-		"id": 125,
-		"organizacao": "Guardians",
-		"imagem": "img.jpg"
-	},
-	{
-		"id": 126,
-		"organizacao": "Elas@Computação",
-		"imagem": "img.jpg"
-	}
-]
+{
+	"_id": 1231231231231232,
+	"name": "OpenDevUFCG",
+	"image_url": "<URL>",
+	"org_url": "<URL>",
+	"image_id": "img.jpg"
+}
 ```
 
 ## Lista as organizacoes do curso
@@ -443,7 +427,7 @@ Retorna uma lista contendo todas as organizações adicionadas do curso.
 #### URL
 
 ```
-GET /organizacoes
+GET /orgs
 ```
 
 **Exemplo**
@@ -451,7 +435,7 @@ GET /organizacoes
 #### Request
 
 ```
-curl -L -X GET 'https://hoco.netlify.app/organizacoes'
+curl -L -X GET 'https://hoco.netlify.app/orgs'
 ```
 
 #### Response
@@ -462,24 +446,39 @@ Status: 200 OK
 ```
 [
 	{
-		"organizacao": "OpenDevUFCG",
-		"imagem": "img.jpg"
+		"_id": 1231231231231232,
+		"name": "OpenDevUFCG",
+		"image_url": "<URL>",
+		"org_url": "<URL>",
+		"image_id": "img.jpg"
 	},
 	{
-		"organizacao": "Pet@Computação",
-		"imagem": "img.jpg"
+		"_id": 1231231231231232,
+		"name": "Pet@Computação",
+		"image_url": "<URL>",
+		"org_url": "<URL>",
+		"image_id": "img.jpg"
 	},
 	{
-		"organizacao": "Caesi",
-		"imagem": "img.jpg"
+		"_id": 1231231231231232,
+		"name": "Caesi",
+		"image_url": "<URL>",
+		"org_url": "<URL>",
+		"image_id": "img.jpg"
 	},
 	{
-		"organizacao": "Guardians",
-		"imagem": "img.jpg"
+		"_id": 1231231231231232,
+		"name": "Guardians",
+		"image_url": "<URL>",
+		"org_url": "<URL>",
+		"image_id": "img.jpg"
 	},
 	{
-		"organizacao": "Elas@Computação",
-		"imagem": "img.jpg"
+		"_id": 1231231231231232,
+		"name": "Elas@Computação",
+		"image_url": "<URL>",
+		"org_url": "<URL>",
+		"image_id": "img.jpg"
 	}
 ]
 ```
@@ -491,19 +490,19 @@ Deleta do banco de dados uma organização do curso e retorna uma lista contendo
 #### URL
 
 ```
-DELETE /organizacao?id=<organizacao_id>
+DELETE /organizacao?name=<organizacao_name>
 ```
 
 | Parameters | Type | Requirement | Description |
 |---|---|---|---|
-| `organizacao_id` | String | obrigatório | o id da organização. |
+| `name` | String | obrigatório | o nome da organização. |
 
 **Exemplos**
 
 #### Request
 
 ```
-curl -L -X DELETE 'https://hoco.netlify.app/organizacao?id=123'
+curl -L -X DELETE 'https://hoco.netlify.app/organizacao?name=OpenDevUFCG'
 ```
 
 #### Response
@@ -514,26 +513,35 @@ Status: 200 OK
 ```
 [
 	{
-		"id": 122,
-		"organizacao": "OpenDevUFCG",
-		"imagem": "img.jpg"
+		"_id": 1231231231231232,
+		"name": "Pet@Computação",
+		"image_url": "<URL>",
+		"org_url": "<URL>",
+		"image_id": "img.jpg"
 	},
 	{
-		"id": 124,
-		"organizacao": "Caesi",
-		"imagem": "img.jpg"
+		"_id": 1231231231231232,
+		"name": "Caesi",
+		"image_url": "<URL>",
+		"org_url": "<URL>",
+		"image_id": "img.jpg"
 	},
 	{
-		"id": 125,
-		"organizacao": "Guardians",
-		"imagem": "img.jpg"
+		"_id": 1231231231231232,
+		"name": "Guardians",
+		"image_url": "<URL>",
+		"org_url": "<URL>",
+		"image_id": "img.jpg"
 	},
 	{
-		"id": 126,
-		"organizacao": "Elas@Computação",
-		"imagem": "img.jpg"
+		"_id": 1231231231231232,
+		"name": "Elas@Computação",
+		"image_url": "<URL>",
+		"org_url": "<URL>",
+		"image_id": "img.jpg"
 	}
 ]
+`
 ```
 
 ## Cadastra uma duvida

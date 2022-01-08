@@ -780,11 +780,17 @@
   <h4 id="url_7">
    URL
   </h4>
-  <pre class="codehilite"><code>POST /organizacao
+  <pre class="codehilite"><code>POST /org
 </code></pre>
   <h4 id="body_2">
    Body
   </h4>
+  <p>
+   <strong>
+    Content-type
+   </strong>
+   : Multipart Form
+  </p>
   <table>
    <thead>
     <tr>
@@ -806,7 +812,178 @@
     <tr>
      <td>
       <code>
-       organizacao
+       name
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      o nome da organização.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       org_url
+      </code>
+     </td>
+     <td>
+      String
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      Url de acesso da organização na web.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       image
+      </code>
+     </td>
+     <td>
+      File
+     </td>
+     <td>
+      obrigatório
+     </td>
+     <td>
+      Arquivo de imagem representante da organização
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <strong>
+    Exemplos
+   </strong>
+  </p>
+  <h4 id="request_7">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X POST 'https://hoco.netlify.app/org' \
+    -H 'Content-Type: form-data' \
+    -F name='nome'\
+    -F org_url=url'\
+    -F image &lt;caminho/para/arquivo&gt;
+}'
+</code></pre>
+  <h4 id="response_7">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 201 CREATED
+</code></pre>
+  <pre class="codehilite"><code>{
+    "_id": 1231231231231232,
+    "name": "OpenDevUFCG",
+    "image_url": "&lt;URL&gt;",
+    "org_url": "&lt;URL&gt;",
+    "image_id": "img.jpg"
+}
+</code></pre>
+  <h2 id="lista-as-organizacoes-do-curso">
+   Lista as organizacoes do curso
+  </h2>
+  <p>
+   Retorna uma lista contendo todas as organizações adicionadas do curso.
+  </p>
+  <h4 id="url_8">
+   URL
+  </h4>
+  <pre class="codehilite"><code>GET /orgs
+</code></pre>
+  <p>
+   <strong>
+    Exemplo
+   </strong>
+  </p>
+  <h4 id="request_8">
+   Request
+  </h4>
+  <pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/orgs'
+</code></pre>
+  <h4 id="response_8">
+   Response
+  </h4>
+  <pre class="codehilite"><code>Status: 200 OK
+</code></pre>
+  <pre class="codehilite"><code>[
+    {
+        "_id": 1231231231231232,
+        "name": "OpenDevUFCG",
+        "image_url": "&lt;URL&gt;",
+        "org_url": "&lt;URL&gt;",
+        "image_id": "img.jpg"
+    },
+    {
+        "_id": 1231231231231232,
+        "name": "Pet@Computação",
+        "image_url": "&lt;URL&gt;",
+        "org_url": "&lt;URL&gt;",
+        "image_id": "img.jpg"
+    },
+    {
+        "_id": 1231231231231232,
+        "name": "Caesi",
+        "image_url": "&lt;URL&gt;",
+        "org_url": "&lt;URL&gt;",
+        "image_id": "img.jpg"
+    },
+    {
+        "_id": 1231231231231232,
+        "name": "Guardians",
+        "image_url": "&lt;URL&gt;",
+        "org_url": "&lt;URL&gt;",
+        "image_id": "img.jpg"
+    },
+    {
+        "_id": 1231231231231232,
+        "name": "Elas@Computação",
+        "image_url": "&lt;URL&gt;",
+        "org_url": "&lt;URL&gt;",
+        "image_id": "img.jpg"
+    }
+]
+</code></pre>
+  <h2 id="remove-uma-organizacao-do-curso">
+   Remove uma organizacao do curso
+  </h2>
+  <p>
+   Deleta do banco de dados uma organização do curso e retorna uma lista contendo todas as organizações restantes do curso. O ID da organização deve ser informado na URL.
+  </p>
+  <h4 id="url_9">
+   URL
+  </h4>
+  <pre class="codehilite"><code>DELETE /organizacao?name=&lt;organizacao_name&gt;
+</code></pre>
+  <table>
+   <thead>
+    <tr>
+     <th>
+      Parameters
+     </th>
+     <th>
+      Type
+     </th>
+     <th>
+      Requirement
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>
+      <code>
+       name
       </code>
      </td>
      <td>
@@ -826,154 +1003,10 @@
     Exemplos
    </strong>
   </p>
-  <h4 id="request_7">
-   Request
-  </h4>
-  <pre class="codehilite"><code>curl -L -X POST 'https://hoco.netlify.app/organizacao' \
--H 'Content-Type: application/json' \
---data-raw '{
-        "organizacao": "OpenDevUFCG"
-    }
-}'
-</code></pre>
-  <h4 id="response_7">
-   Response
-  </h4>
-  <pre class="codehilite"><code>Status: 201 CREATED
-</code></pre>
-  <pre class="codehilite"><code>[
-    {
-        "id": 122,
-        "organizacao": "OpenDevUFCG",
-        "imagem": "img.jpg"
-    },
-    {
-        "id": 123,
-        "organizacao": "Pet@Computação",
-        "imagem": "img.jpg"
-    },
-    {
-        "id": 124,
-        "organizacao": "Caesi",
-        "imagem": "img.jpg"
-    },
-    {
-        "id": 125,
-        "organizacao": "Guardians",
-        "imagem": "img.jpg"
-    },
-    {
-        "id": 126,
-        "organizacao": "Elas@Computação",
-        "imagem": "img.jpg"
-    }
-]
-</code></pre>
-  <h2 id="lista-as-organizacoes-do-curso">
-   Lista as organizacoes do curso
-  </h2>
-  <p>
-   Retorna uma lista contendo todas as organizações adicionadas do curso.
-  </p>
-  <h4 id="url_8">
-   URL
-  </h4>
-  <pre class="codehilite"><code>GET /organizacoes
-</code></pre>
-  <p>
-   <strong>
-    Exemplo
-   </strong>
-  </p>
-  <h4 id="request_8">
-   Request
-  </h4>
-  <pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/organizacoes'
-</code></pre>
-  <h4 id="response_8">
-   Response
-  </h4>
-  <pre class="codehilite"><code>Status: 200 OK
-</code></pre>
-  <pre class="codehilite"><code>[
-    {
-        "organizacao": "OpenDevUFCG",
-        "imagem": "img.jpg"
-    },
-    {
-        "organizacao": "Pet@Computação",
-        "imagem": "img.jpg"
-    },
-    {
-        "organizacao": "Caesi",
-        "imagem": "img.jpg"
-    },
-    {
-        "organizacao": "Guardians",
-        "imagem": "img.jpg"
-    },
-    {
-        "organizacao": "Elas@Computação",
-        "imagem": "img.jpg"
-    }
-]
-</code></pre>
-  <h2 id="remove-uma-organizacao-do-curso">
-   Remove uma organizacao do curso
-  </h2>
-  <p>
-   Deleta do banco de dados uma organização do curso e retorna uma lista contendo todas as organizações restantes do curso. O ID da organização deve ser informado na URL.
-  </p>
-  <h4 id="url_9">
-   URL
-  </h4>
-  <pre class="codehilite"><code>DELETE /organizacao?id=&lt;organizacao_id&gt;
-</code></pre>
-  <table>
-   <thead>
-    <tr>
-     <th>
-      Parameters
-     </th>
-     <th>
-      Type
-     </th>
-     <th>
-      Requirement
-     </th>
-     <th>
-      Description
-     </th>
-    </tr>
-   </thead>
-   <tbody>
-    <tr>
-     <td>
-      <code>
-       organizacao_id
-      </code>
-     </td>
-     <td>
-      String
-     </td>
-     <td>
-      obrigatório
-     </td>
-     <td>
-      o id da organização.
-     </td>
-    </tr>
-   </tbody>
-  </table>
-  <p>
-   <strong>
-    Exemplos
-   </strong>
-  </p>
   <h4 id="request_9">
    Request
   </h4>
-  <pre class="codehilite"><code>curl -L -X DELETE 'https://hoco.netlify.app/organizacao?id=123'
+  <pre class="codehilite"><code>curl -L -X DELETE 'https://hoco.netlify.app/organizacao?name=OpenDevUFCG'
 </code></pre>
   <h4 id="response_9">
    Response
@@ -982,26 +1015,35 @@
 </code></pre>
   <pre class="codehilite"><code>[
     {
-        "id": 122,
-        "organizacao": "OpenDevUFCG",
-        "imagem": "img.jpg"
+        "_id": 1231231231231232,
+        "name": "Pet@Computação",
+        "image_url": "&lt;URL&gt;",
+        "org_url": "&lt;URL&gt;",
+        "image_id": "img.jpg"
     },
     {
-        "id": 124,
-        "organizacao": "Caesi",
-        "imagem": "img.jpg"
+        "_id": 1231231231231232,
+        "name": "Caesi",
+        "image_url": "&lt;URL&gt;",
+        "org_url": "&lt;URL&gt;",
+        "image_id": "img.jpg"
     },
     {
-        "id": 125,
-        "organizacao": "Guardians",
-        "imagem": "img.jpg"
+        "_id": 1231231231231232,
+        "name": "Guardians",
+        "image_url": "&lt;URL&gt;",
+        "org_url": "&lt;URL&gt;",
+        "image_id": "img.jpg"
     },
     {
-        "id": 126,
-        "organizacao": "Elas@Computação",
-        "imagem": "img.jpg"
+        "_id": 1231231231231232,
+        "name": "Elas@Computação",
+        "image_url": "&lt;URL&gt;",
+        "org_url": "&lt;URL&gt;",
+        "image_id": "img.jpg"
     }
 ]
+`
 </code></pre>
   <h2 id="cadastra-uma-duvida">
    Cadastra uma duvida
