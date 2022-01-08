@@ -23,7 +23,8 @@ class Organization:
         return { 
             'name': self.name,
             'org_url': self.access_url,
-            'image_id': f'{self.name}-logo'
+            'image_id': f'{self.name}-logo',
+            'image_url': url_for('api.get_file', filename=f'{self.name}-logo')
         }
 
     def save(self):
@@ -52,17 +53,10 @@ class Organization:
     def find_orgs():
         result = mongo.db.organization.find()
 
-        return [ { 
-            '_id': org['_id'],
-            'name': org['name'],
-            'org_url': org['org_url'],
-            'image_url': url_for('api.get_file', filename=org['image_id'])
-        } for org in result ]
+        return [ { **org, 'image_url': url_for('api.get_file', filename=org['image_id']) } for org in result ]
 
-
-
-
-
-
+    @staticmethod
+    def delete_org(name):
+        mongo.db.organization.delete_one({ 'name': name })
 
 

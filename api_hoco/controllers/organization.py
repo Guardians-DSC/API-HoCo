@@ -34,6 +34,24 @@ def get_orgs():
         result = Organization.find_orgs()
 
 
-        return make_response(jsonify(result), 201)
+        return make_response(jsonify(result), 200)
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)
+
+def remove_org(req):
+    name = req.args.get('name')
+
+    if not name: 
+        params_required = ['name (str)']
+
+        return make_response(input_not_given(params_required), 400)
+
+    try:
+        Organization.delete_org(name)
+        result = Organization.find_orgs()
+
+        return make_response(jsonify(result), 200)
+    except Exception as e:
+        return make_response({'Error:': str(e)}, 500)
+
+
