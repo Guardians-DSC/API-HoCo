@@ -30,6 +30,9 @@ def register_org(request):
         return make_response({'Error:': str(e)}, 500)
 
 def get_orgs():
+    '''
+        Controller function to retrieve all the organizations registered on the database
+    '''
     try:
         result = Organization.find_orgs()
 
@@ -39,6 +42,13 @@ def get_orgs():
         return make_response({'Error:': str(e)}, 500)
 
 def remove_org(req):
+    '''
+        Controller function to delete a specific organization. The user needed to pass the name of the 
+        organization that's going to be deleted.
+
+        Parameters:
+        -> request - (Flask.Request): Request object that contains all the data passed in the request.
+    '''
     name = req.args.get('name')
 
     if not name: 

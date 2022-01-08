@@ -51,12 +51,21 @@ class Organization:
 
     @staticmethod
     def find_orgs():
+        '''
+            Function to retrieve all the organization registered in the database.
+        '''
         result = mongo.db.organization.find()
 
         return [ { **org, 'image_url': url_for('api.get_file', filename=org['image_id']) } for org in result ]
 
     @staticmethod
     def delete_org(name):
+        '''
+            Function to delete a specific organization registered. To do so, the name of the organization is needed.
+
+            Parameters:
+            -> name - (str): The name of the organization that's going to be deleted.
+        '''
         mongo.db.organization.delete_one({ 'name': name })
 
 
