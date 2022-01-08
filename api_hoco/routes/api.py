@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, render_template, request
 from datetime import datetime
+from api_hoco.models.db import mongo
 
 api_blueprints = Blueprint('api', __name__, template_folder='templates')
 
@@ -20,4 +21,9 @@ def status():
 def doc():
     '''Render the API documentation'''
     return render_template("index.html")
+
+@api_blueprints.route("/files/<filename>", methods=['GET'])
+def get_file(filename):
+    '''Render the API documentation'''
+    return mongo.send_file(filename) 
 

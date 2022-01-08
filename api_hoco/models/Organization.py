@@ -1,3 +1,4 @@
+from flask import url_for
 from .db import mongo
 
 class Organization:
@@ -46,4 +47,22 @@ class Organization:
 
         
         return mongo.db.organization.find_one({ 'name': self.name })
+
+    @staticmethod
+    def find_orgs():
+        result = mongo.db.organization.find()
+
+        return [ { 
+            '_id': org['_id'],
+            'name': org['name'],
+            'org_url': org['org_url'],
+            'image_url': url_for('api.get_file', filename=org['image_id'])
+        } for org in result ]
+
+
+
+
+
+
+
 

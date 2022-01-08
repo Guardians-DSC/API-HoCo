@@ -23,9 +23,17 @@ def register_org(request):
 
     try:
         new_org = Organization(name, org_url, org_image)
-        resultado = new_org.save()
+        result = new_org.save()
         
-        return make_response(jsonify(resultado), 201)
+        return make_response(jsonify(result), 201)
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)
 
+def get_orgs():
+    try:
+        result = Organization.find_orgs()
+
+
+        return make_response(jsonify(result), 201)
+    except Exception as e:
+        return make_response({'Error:': str(e)}, 500)

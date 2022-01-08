@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from api_hoco.controllers.organization import register_org
+from api_hoco.controllers.organization import register_org, get_orgs
 
 orgs_blueprints = Blueprint('orgs', __name__, template_folder='templates')
 
@@ -8,4 +8,11 @@ def create_org():
     ''' Route to register a new organization on the DB.'''
     result = register_org(request)
     return result
+
+@orgs_blueprints.route('/orgs', methods=['GET'])
+def list_orgs():
+    '''
+        
+    '''
+    return get_orgs() 
 

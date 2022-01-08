@@ -1,7 +1,7 @@
 import json
 from bson.json_util import ObjectId
 
-class MyJsonify(json.JSONEncoder):
+class MyEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, ObjectId):
             return str(obj)
