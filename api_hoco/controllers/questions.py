@@ -5,7 +5,7 @@ from api_hoco.util.errors import input_not_given
 
 def register_question(request):
     '''
-        Controller function to register new questionanizations by it's name, given url and image of it's logo.
+        Controller function to register new questions by it's name, given url and image of it's logo.
 
         Parameters:
         -> request - (Flask.Request): Request object that contains all the data passed in the request.
@@ -30,7 +30,7 @@ def register_question(request):
 
 def get_questions():
     '''
-        Controller function to retrieve all the questionanizations registered on the database
+        Controller function to retrieve all the questions registered on the database
     '''
     try:
         result = Question.find_questions()
@@ -41,8 +41,8 @@ def get_questions():
 
 def remove_question(req):
     '''
-        Controller function to delete a specific questionanization. The user needed to pass the name of the 
-        questionanization that's going to be deleted.
+        Controller function to delete a specific question. The user needed to pass the name of the 
+        question that's going to be deleted.
 
         Parameters:
         -> request - (Flask.Request): Request object that contains all the data passed in the request.

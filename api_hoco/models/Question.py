@@ -5,7 +5,7 @@ from bson.objectid import ObjectId
 class Question:
     def __init__(self, question, answer):
         '''
-            Initialization of an Object of the type Organzation.
+            Initialization of an Object of the type Question.
 
             Parameters:
             -> question - (str): The question utterance
@@ -16,7 +16,7 @@ class Question:
 
     def save(self):
         '''
-            Function that saves the Organization on the database used. If the question already exists on the
+            Function that saves the Question on the database used. If the question already exists on the
             database (if the name is already registered) the db register is just updated.
         '''
         question = mongo.db.questions.find_one({ 'question': self.question })
@@ -33,7 +33,7 @@ class Question:
     @staticmethod
     def find_questions():
         '''
-            Function to retrieve all the question registered in the database.
+            Function to retrieve all questions registered in the database.
         '''
         result = mongo.db.questions.find()
 
@@ -42,10 +42,10 @@ class Question:
     @staticmethod
     def delete_question(question_id):
         '''
-            Function to delete a specific question registered. To do so, the name of the organization is needed.
+            Function to delete a specific question registered. To do so, the id of the question inside de database is needed.
 
             Parameters:
-            -> name - (str): The name of the question that's going to be deleted.
+            -> question_id - (str): The question_id of the question that's going to be deleted.
         '''
         mongo.db.questions.delete_one({ '_id': ObjectId(question_id) })
 
