@@ -551,15 +551,15 @@ Adiciona no banco de dados uma dúvida sobre o curso com a respectiva resposta e
 #### URL
 
 ```
-POST /duvida
+POST /question
 ```
 
 #### Body
 
 | Parameters | Type | Requirement | Description |
 |---|---|---|---|
-| `pergunta` | String | obrigatório | a dúvida sobre o curso. |
-| `resposta` | String | obrigatório | a resposta da dúvida sobre o curso. |
+| `question` | String | obrigatório | a dúvida sobre o curso. |
+| `answer` | String | obrigatório | a resposta da dúvida sobre o curso. |
 
 **Exemplos**
 
@@ -569,8 +569,8 @@ POST /duvida
 curl -L -X POST 'https://hoco.netlify.app/duvida' \
 -H 'Content-Type: application/json' \
 --data-raw '{
-	    "pergunta": "[a pergunta aqui]",
-		"resposta": "[a resposta aqui]"
+	    "question": "[a pergunta aqui]",
+			"answer": "[a resposta aqui]"
     }
 }'
 ```
@@ -581,23 +581,11 @@ curl -L -X POST 'https://hoco.netlify.app/duvida' \
 Status: 201 CREATED
 ```
 ```
-[
-	{
-		"id": 12345,
-		"pergunta": "[a pergunta aqui]",
-		"resposta": "[a resposta aqui]"
-	},
-	{
-		"id": 12678,
-		"pergunta": "[a pergunta aqui]",
-		"resposta": "[a resposta aqui]"
-	},
-	{
-		"id": 12901,
-		"pergunta": "[a pergunta aqui]",
-		"resposta": "[a resposta aqui]"
-	}
-]
+{
+	"_id": 12345,
+	"pergunta": "[a pergunta aqui]",
+	"resposta": "[a resposta aqui]"
+}
 ```
 
 ## Lista as duvidas
@@ -607,7 +595,7 @@ Retorna uma lista contendo todas as dúvidas adicionadas sobre o curso.
 #### URL
 
 ```
-GET /duvidas
+GET /questions
 ```
 
 **Exemplo**
@@ -615,7 +603,7 @@ GET /duvidas
 #### Request
 
 ```
-curl -L -X GET 'https://hoco.netlify.app/duvidas'
+curl -L -X GET 'https://hoco.netlify.app/questions'
 ```
 
 #### Response
@@ -626,17 +614,17 @@ Status: 200 OK
 ```
 [
 	{
-		"id": 12345,
+		"_id": 12345,
 		"pergunta": "[a pergunta aqui]",
 		"resposta": "[a resposta aqui]"
 	},
 	{
-		"id": 12678,
+		"_id": 12678,
 		"pergunta": "[a pergunta aqui]",
 		"resposta": "[a resposta aqui]"
 	},
 	{
-		"id": 12901,
+		"_id": 12901,
 		"pergunta": "[a pergunta aqui]",
 		"resposta": "[a resposta aqui]"
 	}
@@ -650,19 +638,19 @@ Deleta do banco de dados uma dúvida sobre o curso e retorna uma lista contendo 
 #### URL
 
 ```
-DELETE /duvida?id=<duvida_id>
+DELETE /question?id=<question_id>
 ```
 
 | Parameters | Type | Requirement | Description |
 |---|---|---|---|
-| `duvida_id` | String | obrigatório | o id da organização. |
+| `question_id` | String | obrigatório | o id da dúvida no bd. |
 
 **Exemplos**
 
 #### Request
 
 ```
-curl -L -X DELETE 'https://hoco.netlify.app/duvida?id=12345'
+curl -L -X DELETE 'https://hoco.netlify.app/question?id=12345'
 ```
 
 #### Response
@@ -673,12 +661,12 @@ Status: 200 OK
 ```
 [
 	{
-		"id": 12678,
+		"_id": 12678,
 		"pergunta": "[a pergunta aqui]",
 		"resposta": "[a resposta aqui]"
 	},
 	{
-		"id": 12901,
+		"_id": 12901,
 		"pergunta": "[a pergunta aqui]",
 		"resposta": "[a resposta aqui]"
 	}

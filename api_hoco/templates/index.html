@@ -1066,7 +1066,7 @@
   <h4 id="url_10">
    URL
   </h4>
-  <pre class="codehilite"><code>POST /duvida
+  <pre class="codehilite"><code>POST /question
 </code></pre>
   <h4 id="body_3">
    Body
@@ -1092,7 +1092,7 @@
     <tr>
      <td>
       <code>
-       pergunta
+       question
       </code>
      </td>
      <td>
@@ -1108,7 +1108,7 @@
     <tr>
      <td>
       <code>
-       resposta
+       answer
       </code>
      </td>
      <td>
@@ -1134,8 +1134,8 @@
   <pre class="codehilite"><code>curl -L -X POST 'https://hoco.netlify.app/duvida' \
 -H 'Content-Type: application/json' \
 --data-raw '{
-        "pergunta": "[a pergunta aqui]",
-        "resposta": "[a resposta aqui]"
+        "question": "[a pergunta aqui]",
+            "answer": "[a resposta aqui]"
     }
 }'
 </code></pre>
@@ -1144,23 +1144,11 @@
   </h4>
   <pre class="codehilite"><code>Status: 201 CREATED
 </code></pre>
-  <pre class="codehilite"><code>[
-    {
-        "id": 12345,
-        "pergunta": "[a pergunta aqui]",
-        "resposta": "[a resposta aqui]"
-    },
-    {
-        "id": 12678,
-        "pergunta": "[a pergunta aqui]",
-        "resposta": "[a resposta aqui]"
-    },
-    {
-        "id": 12901,
-        "pergunta": "[a pergunta aqui]",
-        "resposta": "[a resposta aqui]"
-    }
-]
+  <pre class="codehilite"><code>{
+    "_id": 12345,
+    "pergunta": "[a pergunta aqui]",
+    "resposta": "[a resposta aqui]"
+}
 </code></pre>
   <h2 id="lista-as-duvidas">
    Lista as duvidas
@@ -1171,7 +1159,7 @@
   <h4 id="url_11">
    URL
   </h4>
-  <pre class="codehilite"><code>GET /duvidas
+  <pre class="codehilite"><code>GET /questions
 </code></pre>
   <p>
    <strong>
@@ -1181,7 +1169,7 @@
   <h4 id="request_11">
    Request
   </h4>
-  <pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/duvidas'
+  <pre class="codehilite"><code>curl -L -X GET 'https://hoco.netlify.app/questions'
 </code></pre>
   <h4 id="response_11">
    Response
@@ -1190,17 +1178,17 @@
 </code></pre>
   <pre class="codehilite"><code>[
     {
-        "id": 12345,
+        "_id": 12345,
         "pergunta": "[a pergunta aqui]",
         "resposta": "[a resposta aqui]"
     },
     {
-        "id": 12678,
+        "_id": 12678,
         "pergunta": "[a pergunta aqui]",
         "resposta": "[a resposta aqui]"
     },
     {
-        "id": 12901,
+        "_id": 12901,
         "pergunta": "[a pergunta aqui]",
         "resposta": "[a resposta aqui]"
     }
@@ -1215,7 +1203,7 @@
   <h4 id="url_12">
    URL
   </h4>
-  <pre class="codehilite"><code>DELETE /duvida?id=&lt;duvida_id&gt;
+  <pre class="codehilite"><code>DELETE /question?id=&lt;question_id&gt;
 </code></pre>
   <table>
    <thead>
@@ -1238,7 +1226,7 @@
     <tr>
      <td>
       <code>
-       duvida_id
+       question_id
       </code>
      </td>
      <td>
@@ -1248,7 +1236,7 @@
       obrigatório
      </td>
      <td>
-      o id da organização.
+      o id da dúvida no bd.
      </td>
     </tr>
    </tbody>
@@ -1261,7 +1249,7 @@
   <h4 id="request_12">
    Request
   </h4>
-  <pre class="codehilite"><code>curl -L -X DELETE 'https://hoco.netlify.app/duvida?id=12345'
+  <pre class="codehilite"><code>curl -L -X DELETE 'https://hoco.netlify.app/question?id=12345'
 </code></pre>
   <h4 id="response_12">
    Response
@@ -1270,12 +1258,12 @@
 </code></pre>
   <pre class="codehilite"><code>[
     {
-        "id": 12678,
+        "_id": 12678,
         "pergunta": "[a pergunta aqui]",
         "resposta": "[a resposta aqui]"
     },
     {
-        "id": 12901,
+        "_id": 12901,
         "pergunta": "[a pergunta aqui]",
         "resposta": "[a resposta aqui]"
     }
