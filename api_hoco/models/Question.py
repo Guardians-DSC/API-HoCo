@@ -19,15 +19,8 @@ class Question:
             Function that saves the Question on the database used. If the question already exists on the
             database (if the name is already registered) the db register is just updated.
         '''
-        question = mongo.db.questions.find_one({ 'question': self.question })
+        mongo.db.questions.insert_one(vars(self)) 
 
-        if (question):
-            mongo.db.questions.update_one({ 'question': self.question }, { '$set': vars(self) }) 
-
-        else:
-            mongo.db.questions.insert_one(vars(self)) 
-
-        
         return mongo.db.questions.find_one({ 'question': self.question })
 
     @staticmethod
