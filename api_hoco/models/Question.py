@@ -22,7 +22,7 @@ class Question:
         question = mongo.db.questions.find_one({ 'question': self.question })
 
         if (question):
-            mongo.db.questions.update_one({ 'question': self.question }, { '$set': var(self) }) 
+            mongo.db.questions.update_one({ 'question': self.question }, { '$set': vars(self) }) 
 
         else:
             mongo.db.questions.insert_one(vars(self)) 
