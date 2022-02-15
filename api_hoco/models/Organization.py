@@ -1,5 +1,6 @@
 from flask import url_for
 from .db import mongo
+from bson.objectid import ObjectId
 
 class Organization:
     def __init__(self, name, access_url, image):
@@ -59,13 +60,13 @@ class Organization:
         return [ { **org, 'image_url': url_for('api.get_file', filename=org['image_id']) } for org in result ]
 
     @staticmethod
-    def delete_org(name):
+    def delete_org(org_id):
         '''
-            Function to delete a specific organization registered. To do so, the name of the organization is needed.
+            Function to delete a specific organization registered. To do so, the id of the organization is needed.
 
             Parameters:
-            -> name - (str): The name of the organization that's going to be deleted.
+            -> org_id - (str): The id of the organization that's going to be deleted.
         '''
-        mongo.db.organization.delete_one({ 'name': name })
+        mongo.db.organization.delete_one({ '_id': ObjectId(org_id) })
 
 

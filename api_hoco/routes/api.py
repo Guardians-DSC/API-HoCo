@@ -12,8 +12,8 @@ def status():
     status = {
         "status": "Operacional",
         "service": "API-HoCo",
-        "timestamp": datetime.timestamp(current_timestamp),
-        "date": current_timestamp,
+        "timestamp": float(datetime.timestamp(current_timestamp)),
+        "date": str(current_timestamp),
     }
     return jsonify(status), 200
 

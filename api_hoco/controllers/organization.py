@@ -49,15 +49,15 @@ def remove_org(req):
         Parameters:
         -> request - (Flask.Request): Request object that contains all the data passed in the request.
     '''
-    name = req.args.get('name')
+    org_id = req.args.get('id')
 
-    if not name: 
-        params_required = ['name (str)']
+    if not org_id: 
+        params_required = ['id (str)']
 
         return make_response(input_not_given(params_required), 400)
 
     try:
-        Organization.delete_org(name)
+        Organization.delete_org(org_id)
         result = Organization.find_orgs()
 
         return make_response(jsonify(result), 200)
