@@ -61,7 +61,7 @@ Status: 200 OK
 
 ## Recupera o total de creditos por categoria do aluno
 
-Retorna uma lista contendo o total de créditos acumulados, por categoria, do aluno e o número máximo de créditos possíveis na categoria.
+Retorna uma lista contendo o total de créditos acumulados, por categoria, do aluno e o número máximo de créditos possíveis na categoria, ordenado de forma decrescente a partir da categoria de maior proporção para a de menor proporção na proporção total. 
 
 #### URL
 
@@ -87,66 +87,26 @@ Status: 200 OK
     {
 		"categoria": "Projeto",
 		"acumulado": 16,
-		"maximo": 16
+		"maximo": 16,
+		"proporcao_categoria": 0.20
 	},
     {
 		"categoria": "Evento",
 		"acumulado": 12,
-		"maximo": 16
+		"maximo": 16,
+		"proporcao_categoria": 0.18
 	},
     {
 		"categoria": "Monitoria",
 		"acumulado": 4,
-		"maximo": 18
+		"maximo": 18,
+		"proporcao_categoria": 0.15
 	},
     {
 		"categoria": "Caesi",
 		"acumulado": 2,
-		"maximo": 4
-	}
-]
-```
-
-## Recupera as 4 categorias com o maior numero de creditos do aluno
-
-Retorna uma lista contendo as quatro categorias com o maior número de créditos do aluno, ordenadas pela porcentagem.
-
-#### URL
-
-```
-GET /categorias/top
-```
-
-**Exemplo**
-
-#### Request
-
-```
-curl -L -X GET 'https://hoco.netlify.app/categorias/top'
-```
-
-#### Response
-
-```
-Status: 200 OK
-```
-```
-[
-    {
-	    "categoria": "Projeto",
-	    "porcentagem": 0.45
-	},
-    {
-		"categoria": "Evento",
-		"porcentagem": 0.20
-	},
-    {
-		"categoria": "Monitoria",
-		"porcentagem": 0.10
-	},
-    {
-		"categoria": "Caesi",
-		"porcentagem": 0.10
+		"maximo": 4,
+		"proporcao_categoria": 0.10
 	}
 ]
 ```
