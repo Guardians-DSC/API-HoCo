@@ -2,7 +2,6 @@ from flask import Flask, jsonify, make_response
 from api_hoco.models.Organization import Organization
 from api_hoco.util.errors import input_not_given
 
-
 def register_org(request):
     '''
         Controller function to register new organizations by it's name, given url and image of it's logo.
@@ -13,6 +12,7 @@ def register_org(request):
     req_form = request.form
 
     org_image = request.files['image']
+
     name = req_form.get('name')
     org_url = req_form.get('org_url')
 

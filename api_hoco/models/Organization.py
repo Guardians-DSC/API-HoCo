@@ -1,3 +1,4 @@
+import base64 
 from flask import url_for
 from .db import mongo
 from bson.objectid import ObjectId
@@ -10,22 +11,25 @@ class Organization:
             Parameters:
             -> name - (str): Name of the organization.
             -> access_url - (str): URL of the org, like a site or a social media link.
-            -> image - (file): Image file of the organization logo.
+            -> image - (bytes): Image file of the organization logo.
         '''
+
+        image_bytes = base64.b64encode(image.read())
+        string_image = image_bytes.decode('utf-8')
+
         self.name = name
         self.access_url = access_url
-        self.image = image
+        self.image = string_image
 
     def get_properties(self):
         '''
             Function that returns some properties of the Organization object
         '''
-
+        
         return { 
             'name': self.name,
             'org_url': self.access_url,
-            'image_id': f'{self.name}-logo',
-            'image_url': url_for('api.get_file', filename=f'{self.name}-logo')
+            'image': f'data:image/jpeg;base64,{self.image}',
         }
 
     def save(self):
@@ -33,10 +37,6 @@ class Organization:
             Function that saves the Organization on the database used. If the organization already exists on the
             database (if the name is already registered) the db register is just updated.
         '''
-        org_image = f'{self.name}-logo'
-
-        mongo.save_file(org_image, self.image)
-        
         org_properties = self.get_properties()
 
         org = mongo.db.organization.find_one({ 'name': self.name })
@@ -57,7 +57,7 @@ class Organization:
         '''
         result = mongo.db.organization.find()
 
-        return [ { **org, 'image_url': url_for('api.get_file', filename=org['image_id']) } for org in result ]
+        return [ org for org in result ]
 
     @staticmethod
     def delete_org(org_id):
