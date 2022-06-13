@@ -1,6 +1,6 @@
 # **API HoCo**
 
-API RESTful do projeto [HoCo](https://github.com/Guardians-DSC/HoCo), que dispõe de funcionalidades *CRUD* de um sistema para gerenciamento de horas complementares dos alunos da graduação de Ciência da Computação na UFCG.
+API RESTful do projeto [HoCo](https://github.com/Guardians-DSC/HoCo), que dispõe de funcionalidades _CRUD_ de um sistema para gerenciamento de horas complementares dos alunos da graduação de Ciência da Computação na UFCG.
 
 ## **Funcionalidades oferecidas pela API:**
 
@@ -31,12 +31,12 @@ API RESTful do projeto [HoCo](https://github.com/Guardians-DSC/HoCo), que dispõ
 
 ## Recupera o total de creditos do aluno
 
-Retorna um *JSON* contendo o número de créditos atual do aluno e o número máximo de créditos necessários no curso.
+Retorna um _JSON_ contendo o número de créditos atual do aluno e o número máximo de créditos necessários no curso.
 
 #### URL
 
 ```
-GET /creditos
+GET /credits
 ```
 
 **Exemplo**
@@ -44,7 +44,7 @@ GET /creditos
 #### Request
 
 ```
-curl -L -X GET 'https://hoco.netlify.app/creditos'
+curl -L -X GET 'https://hoco.netlify.app/credits'
 ```
 
 #### Response
@@ -52,6 +52,7 @@ curl -L -X GET 'https://hoco.netlify.app/creditos'
 ```
 Status: 200 OK
 ```
+
 ```
 {
 	"creditos": 11,
@@ -61,12 +62,12 @@ Status: 200 OK
 
 ## Recupera o total de creditos por categoria do aluno
 
-Retorna uma lista contendo o total de créditos acumulados, por categoria, do aluno e o número máximo de créditos possíveis na categoria, ordenado de forma decrescente a partir da categoria de maior proporção para a de menor proporção na proporção total. 
+Retorna uma lista contendo o total de créditos acumulados, por categoria, do aluno e o número máximo de créditos possíveis na categoria, ordenado de forma decrescente a partir da categoria de maior proporção para a de menor proporção na proporção total.
 
 #### URL
 
 ```
-GET /categorias/creditos
+GET /categories/
 ```
 
 **Exemplo**
@@ -74,7 +75,7 @@ GET /categorias/creditos
 #### Request
 
 ```
-curl -L -X GET 'https://hoco.netlify.app/categorias/creditos'
+curl -L -X GET 'https://hoco.netlify.app/categories/'
 ```
 
 #### Response
@@ -82,60 +83,61 @@ curl -L -X GET 'https://hoco.netlify.app/categorias/creditos'
 ```
 Status: 200 OK
 ```
+
 ```
 [
     {
-		"categoria": "Projeto",
-		"acumulado": 16,
-		"maximo": 16,
-		"proporcao_categoria": 0.20
+		"category": "Projeto",
+		"amount": 16,
+		"max": 16,
+		"category_piece": 0.20
 	},
     {
-		"categoria": "Evento",
-		"acumulado": 12,
-		"maximo": 16,
-		"proporcao_categoria": 0.18
+		"category": "Evento",
+		"amount": 12,
+		"max": 16,
+		"category_piece": 0.18
 	},
     {
-		"categoria": "Monitoria",
-		"acumulado": 4,
-		"maximo": 18,
-		"proporcao_categoria": 0.15
+		"category": "Monitoria",
+		"amount": 4,
+		"max": 18,
+		"category_piece": 0.15
 	},
     {
-		"categoria": "Caesi",
-		"acumulado": 2,
-		"maximo": 4,
-		"proporcao_categoria": 0.10
+		"category": "Caesi",
+		"amount": 2,
+		"max": 4,
+		"category_piece": 0.10
 	}
 ]
 ```
 
 ## Cadastra uma atividade do aluno
 
-Adiciona no banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades adicionadas do aluno. A requisição deve enviar no body um *JSON* com os campos `titulo`, `creditos`, `horas` e `categoria`.
+Adiciona no banco de dados uma atividade do aluno e retorna uma lista contendo todas as atividades adicionadas do aluno. A requisição deve enviar no body um _JSON_ com os campos `title`, `credits`, `time (horas)` e `category`.
 
 #### URL
 
 ```
-POST /atividade
+POST /activity
 ```
 
 #### Body
 
-| Parameters | Type | Requirement | Description |
-|---|---|---|---|
-| `titulo` | String | obrigatório | o nome da atividade. |
-| `creditos` | int | obrigatório | os créditos obtidos na atividade. |
-| `horas` | int | obrigatório | as horas gastas na atividade. |
-| `categoria` | String | obrigatório | a categoria da atividade. |
+| Parameters | Type   | Requirement | Description                       |
+| ---------- | ------ | ----------- | --------------------------------- |
+| `title`    | String | obrigatório | o nome da atividade.              |
+| `credits`  | int    | obrigatório | os créditos obtidos na atividade. |
+| `time`     | int    | obrigatório | as horas gastas na atividade.     |
+| `category` | String | obrigatório | a categoria da atividade.         |
 
 **Exemplos**
 
 #### Request
 
 ```
-curl -L -X POST 'https://hoco.netlify.app/atividade' \
+curl -L -X POST 'https://hoco.netlify.app/activity' \
 -H 'Content-Type: application/json' \
 --data-raw '{
 	    "titulo": "projeto ePol",
@@ -150,27 +152,26 @@ curl -L -X POST 'https://hoco.netlify.app/atividade' \
 ```
 Status: 201 CREATED
 ```
+
 ```
 [
 	{
 		"id:": 129087124908,
-		"titulo": "projeto ePol",
-		"creditos": 10,
-		"horas": 950,
-		"categoria": "Projeto"
+		"title": "projeto ePol",
+		"credits": 10,
+		"category": "Projeto"
 	},
     {
 		"id:": 129087124901,
-		"titulo": "CodeSQ",
-		"creditos": 4,
-		"horas": 320,
-		"categoria": "Projeto"
+		"title": "CodeSQ",
+		"time": 320,
+		"category": "Projeto"
 	},
     {
 		"id:": 132312312312,
-		"titulo": "Andromedev",
-		"horas": 135,
-		"categoria": "Evento"
+		"title": "Andromedev",
+		"time": 135,
+		"category": "Evento"
 	}
 ]
 ```
@@ -182,7 +183,7 @@ Retorna uma lista contendo todas as atividades adicionadas do aluno.
 #### URL
 
 ```
-GET /atividades
+GET /activities
 ```
 
 **Exemplo**
@@ -190,7 +191,7 @@ GET /atividades
 #### Request
 
 ```
-curl -L -X GET 'https://hoco.netlify.app/atividades'
+curl -L -X GET 'https://hoco.netlify.app/activities'
 ```
 
 #### Response
@@ -198,60 +199,59 @@ curl -L -X GET 'https://hoco.netlify.app/atividades'
 ```
 Status: 200 OK
 ```
+
 ```
 [
 	{
 		"id:": 129087124908,
-		"titulo": "projeto ePol",
-		"creditos": 10,
-		"horas": 950,
-		"categoria": "Projeto"
+		"title": "projeto ePol",
+		"credits": 10,
+		"category": "Projeto"
 	},
     {
 		"id:": 129087124901,
-		"titulo": "CodeSQ",
-		"creditos": 4,
-		"horas": 320,
-		"categoria": "Projeto"
+		"title": "CodeSQ",
+		"credits": 4,
+		"category": "Projeto"
 	},
     {
 		"id:": 132312312312,
-		"titulo": "Andromedev",
-		"horas": 135,
-		"categoria": "Evento"
+		"title": "Andromedev",
+		"time": 135,
+		"category": "Evento"
 	}
 ]
 ```
 
 ## Edita uma atividade do aluno
 
-Atualiza no banco de dados as informações de uma atividade do aluno e retorna uma lista contendo todas as atividades atuais do aluno. O ID da atividade deve ser informado na URL. A requisição deve enviar no body um *JSON* contendo os campos de possível edição, sendo estes: `titulo`, `creditos`, `horas` e `categoria`.
+Atualiza no banco de dados as informações de uma atividade do aluno e retorna uma lista contendo todas as atividades atuais do aluno. O ID da atividade deve ser informado na URL. A requisição deve enviar no body um _JSON_ contendo os campos de possível edição, sendo estes: `title`, `credits`, `time (horas)` e `category`.
 
 #### URL
 
 ```
-PATCH /atividade?id=<atividade_id>
+PATCH /activity?id=<atividade_id>
 ```
 
-| Parameters | Type | Requirement | Description |
-|---|---|---|---|
-| `atividade_id` | String | obrigatório | o id da atividade. |
+| Parameters    | Type   | Requirement | Description        |
+| ------------- | ------ | ----------- | ------------------ |
+| `activity_id` | String | obrigatório | o id da atividade. |
 
 #### Body
 
-| Parameters | Type | Requirement | Description |
-|---|---|---|---|
-| `titulo` | String | opcional | o nome da atividade. |
-| `creditos` | int | opcional | os créditos obtidos na atividade. |
-| `horas` | int | opcional | as horas gastas na atividade. |
-| `categoria` | String | opcional | a categoria da atividade. |
+| Parameters | Type   | Requirement | Description                       |
+| ---------- | ------ | ----------- | --------------------------------- |
+| `title`    | String | opcional    | o nome da atividade.              |
+| `credits`  | int    | opcional    | os créditos obtidos na atividade. |
+| `time`     | int    | opcional    | as horas gastas na atividade.     |
+| `category` | String | opcional    | a categoria da atividade.         |
 
 **Exemplos**
 
 #### Request
 
 ```
-curl -L -X PATCH 'https://hoco.netlify.app/atividade?id=129087124908' \
+curl -L -X PATCH 'https://hoco.netlify.app/activity?id=129087124908' \
 -H 'Content-Type: application/json' \
 --data-raw '{
     "creditos": 12
@@ -263,27 +263,28 @@ curl -L -X PATCH 'https://hoco.netlify.app/atividade?id=129087124908' \
 ```
 Status: 200 OK
 ```
+
 ```
 [
 	{
 		"id:": 129087124908,
-		"titulo": "projeto ePol",
-		"creditos": 12,
-		"horas": 950,
-		"categoria": "Projeto"
+		"title": "projeto ePol",
+		"credits": 12,
+		"time": 950,
+		"category": "Projeto"
 	},
     {
 		"id:": 129087124901,
-		"titulo": "CodeSQ",
-		"creditos": 4,
-		"horas": 320,
-		"categoria": "Projeto"
+		"title": "CodeSQ",
+		"credits": 4,
+		"time": 320,
+		"category": "Projeto"
 	},
     {
 		"id:": 132312312312,
-		"titulo": "Andromedev",
-		"horas": 135,
-		"categoria": "Evento"
+		"title": "Andromedev",
+		"time": 135,
+		"category": "Evento"
 	}
 ]
 ```
@@ -298,8 +299,8 @@ Deleta do banco de dados uma atividade do aluno e retorna uma lista contendo tod
 DELETE /atividade?id=<atividade_id>
 ```
 
-| Parameters | Type | Requirement | Description |
-|---|---|---|---|
+| Parameters     | Type   | Requirement | Description        |
+| -------------- | ------ | ----------- | ------------------ |
 | `atividade_id` | String | obrigatório | o id da atividade. |
 
 **Exemplos**
@@ -307,7 +308,7 @@ DELETE /atividade?id=<atividade_id>
 #### Request
 
 ```
-curl -L -X DELETE 'https://hoco.netlify.app/atividade?id=129087124908'
+curl -L -X DELETE 'https://hoco.netlify.app/activity?id=129087124908'
 ```
 
 #### Response
@@ -315,26 +316,27 @@ curl -L -X DELETE 'https://hoco.netlify.app/atividade?id=129087124908'
 ```
 Status: 200 OK
 ```
+
 ```
 [
     {
 		"id:": 129087124901,
-		"titulo": "CodeSQ",
-		"creditos": 4,
-		"categoria": "Projeto"
+		"title": "CodeSQ",
+		"credits": 4,
+		"category": "Projeto"
 	},
     {
 		"id:": 132312312312,
-		"titulo": "Andromedev",
-		"horas": 135,
-		"categoria": "Evento"
+		"title": "Andromedev",
+		"time": 135,
+		"category": "Evento"
 	}
 ]
 ```
 
 ## Cadastra uma organização do curso
 
-Adiciona no banco de dados uma organização do curso e retorna uma lista contendo todas as organizações adicionadas do curso. A requisição deve enviar no body um *JSON* com o campo `organizacao`.
+Adiciona no banco de dados uma organização do curso e retorna uma lista contendo todas as organizações adicionadas do curso.
 
 #### URL
 
@@ -346,11 +348,11 @@ POST /org
 
 **Content-type**: Multipart Form
 
-| Parameters | Type | Requirement | Description |
-|---|---|---|---|
-| `name` | String | obrigatório | o nome da organização. |
-| `org_url` | String | obrigatório | Url de acesso da organização na web. |
-| `image` | File | obrigatório | Arquivo de imagem representante da organização |
+| Parameters | Type   | Requirement | Description                                    |
+| ---------- | ------ | ----------- | ---------------------------------------------- |
+| `name`     | String | obrigatório | o nome da organização.                         |
+| `org_url`  | String | obrigatório | Url de acesso da organização na web.           |
+| `image`    | File   | obrigatório | Arquivo de imagem representante da organização |
 
 **Exemplos**
 
@@ -370,13 +372,13 @@ curl -L -X POST 'https://hoco.netlify.app/org' \
 ```
 Status: 201 CREATED
 ```
+
 ```
 {
 	"_id": 1231231231231232,
 	"name": "OpenDevUFCG",
-	"image_url": "<URL>",
 	"org_url": "<URL>",
-	"image_id": "img.jpg"
+	"image": <coded_image>
 }
 ```
 
@@ -403,42 +405,38 @@ curl -L -X GET 'https://hoco.netlify.app/orgs'
 ```
 Status: 200 OK
 ```
+
 ```
 [
 	{
 		"_id": 1231231231231232,
 		"name": "OpenDevUFCG",
-		"image_url": "<URL>",
 		"org_url": "<URL>",
-		"image_id": "img.jpg"
+		"image": <coded_image>
 	},
 	{
 		"_id": 1231231231231232,
 		"name": "Pet@Computação",
-		"image_url": "<URL>",
 		"org_url": "<URL>",
-		"image_id": "img.jpg"
+		"image": <coded_image>
 	},
 	{
 		"_id": 1231231231231232,
 		"name": "Caesi",
-		"image_url": "<URL>",
 		"org_url": "<URL>",
-		"image_id": "img.jpg"
+		"image": <coded_image>
 	},
 	{
 		"_id": 1231231231231232,
 		"name": "Guardians",
-		"image_url": "<URL>",
 		"org_url": "<URL>",
-		"image_id": "img.jpg"
+		"image": <coded_image>
 	},
 	{
 		"_id": 1231231231231232,
 		"name": "Elas@Computação",
-		"image_url": "<URL>",
 		"org_url": "<URL>",
-		"image_id": "img.jpg"
+		"image": <coded_image>
 	}
 ]
 ```
@@ -450,19 +448,19 @@ Deleta do banco de dados uma organização do curso e retorna uma lista contendo
 #### URL
 
 ```
-DELETE /organizacao?name=<organizacao_name>
+DELETE /org?id=<org_id>
 ```
 
-| Parameters | Type | Requirement | Description |
-|---|---|---|---|
-| `name` | String | obrigatório | o nome da organização. |
+| Parameters | Type   | Requirement | Description                          |
+| ---------- | ------ | ----------- | ------------------------------------ |
+| `id`       | String | obrigatório | id da organização no banco de dados. |
 
 **Exemplos**
 
 #### Request
 
 ```
-curl -L -X DELETE 'https://hoco.netlify.app/organizacao?name=OpenDevUFCG'
+curl -L -X DELETE 'https://hoco.netlify.app/org?id=62a60f4fc230515f63abae43'
 ```
 
 #### Response
@@ -470,35 +468,32 @@ curl -L -X DELETE 'https://hoco.netlify.app/organizacao?name=OpenDevUFCG'
 ```
 Status: 200 OK
 ```
+
 ```
 [
 	{
 		"_id": 1231231231231232,
 		"name": "Pet@Computação",
-		"image_url": "<URL>",
 		"org_url": "<URL>",
-		"image_id": "img.jpg"
+		"image": <coded_image>
 	},
 	{
 		"_id": 1231231231231232,
 		"name": "Caesi",
-		"image_url": "<URL>",
 		"org_url": "<URL>",
-		"image_id": "img.jpg"
+		"image": <coded_image>
 	},
 	{
 		"_id": 1231231231231232,
 		"name": "Guardians",
-		"image_url": "<URL>",
 		"org_url": "<URL>",
-		"image_id": "img.jpg"
+		"image": <coded_image>
 	},
 	{
 		"_id": 1231231231231232,
 		"name": "Elas@Computação",
-		"image_url": "<URL>",
 		"org_url": "<URL>",
-		"image_id": "img.jpg"
+		"image": <coded_image>g"
 	}
 ]
 `
@@ -506,7 +501,7 @@ Status: 200 OK
 
 ## Cadastra uma duvida
 
-Adiciona no banco de dados uma dúvida sobre o curso com a respectiva resposta e retorna uma lista contendo todas as dúvidas adicionadas sobre o curso. A requisição deve enviar no body um *JSON* com os campos `pergunta` e `resposta`.
+Adiciona no banco de dados uma dúvida sobre o curso com a respectiva resposta e retorna uma lista contendo todas as dúvidas adicionadas sobre o curso. A requisição deve enviar no body um _JSON_ com os campos `question` e `answer`.
 
 #### URL
 
@@ -516,17 +511,17 @@ POST /question
 
 #### Body
 
-| Parameters | Type | Requirement | Description |
-|---|---|---|---|
-| `question` | String | obrigatório | a dúvida sobre o curso. |
-| `answer` | String | obrigatório | a resposta da dúvida sobre o curso. |
+| Parameters | Type   | Requirement | Description                         |
+| ---------- | ------ | ----------- | ----------------------------------- |
+| `question` | String | obrigatório | a dúvida sobre o curso.             |
+| `answer`   | String | obrigatório | a resposta da dúvida sobre o curso. |
 
 **Exemplos**
 
 #### Request
 
 ```
-curl -L -X POST 'https://hoco.netlify.app/duvida' \
+curl -L -X POST 'https://hoco.netlify.app/question' \
 -H 'Content-Type: application/json' \
 --data-raw '{
 	    "question": "[a pergunta aqui]",
@@ -540,11 +535,12 @@ curl -L -X POST 'https://hoco.netlify.app/duvida' \
 ```
 Status: 201 CREATED
 ```
+
 ```
 {
 	"_id": 12345,
-	"pergunta": "[a pergunta aqui]",
-	"resposta": "[a resposta aqui]"
+	"question": "[a pergunta aqui]",
+	"answer": "[a resposta aqui]"
 }
 ```
 
@@ -571,22 +567,23 @@ curl -L -X GET 'https://hoco.netlify.app/questions'
 ```
 Status: 200 OK
 ```
+
 ```
 [
 	{
 		"_id": 12345,
-		"pergunta": "[a pergunta aqui]",
-		"resposta": "[a resposta aqui]"
+		"question": "[a pergunta aqui]",
+		"answer": "[a resposta aqui]"
 	},
 	{
 		"_id": 12678,
-		"pergunta": "[a pergunta aqui]",
-		"resposta": "[a resposta aqui]"
+		"question": "[a pergunta aqui]",
+		"answer": "[a resposta aqui]"
 	},
 	{
 		"_id": 12901,
-		"pergunta": "[a pergunta aqui]",
-		"resposta": "[a resposta aqui]"
+		"question": "[a pergunta aqui]",
+		"answer": "[a resposta aqui]"
 	}
 ]
 ```
@@ -601,8 +598,8 @@ Deleta do banco de dados uma dúvida sobre o curso e retorna uma lista contendo 
 DELETE /question?id=<question_id>
 ```
 
-| Parameters | Type | Requirement | Description |
-|---|---|---|---|
+| Parameters    | Type   | Requirement | Description           |
+| ------------- | ------ | ----------- | --------------------- |
 | `question_id` | String | obrigatório | o id da dúvida no bd. |
 
 **Exemplos**
@@ -618,17 +615,18 @@ curl -L -X DELETE 'https://hoco.netlify.app/question?id=12345'
 ```
 Status: 200 OK
 ```
+
 ```
 [
 	{
 		"_id": 12678,
-		"pergunta": "[a pergunta aqui]",
-		"resposta": "[a resposta aqui]"
+		"question": "[a pergunta aqui]",
+		"answer": "[a resposta aqui]"
 	},
 	{
 		"_id": 12901,
-		"pergunta": "[a pergunta aqui]",
-		"resposta": "[a resposta aqui]"
+		"question": "[a pergunta aqui]",
+		"answer": "[a resposta aqui]"
 	}
 ]
 ```
