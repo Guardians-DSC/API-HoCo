@@ -8,7 +8,6 @@ API RESTful do projeto [HoCo](https://github.com/Guardians-DSC/HoCo), que dispõ
 
 - [**Recupera o total de créditos do aluno**](#recupera-o-total-de-creditos-do-aluno)
 - [**Recupera o total de créditos por categoria do aluno**](#recupera-o-total-de-creditos-por-categoria-do-aluno)
-- [**Recupera as 4 categorias com o maior número de créditos do aluno**](#recupera-as-4-categorias-com-o-maior-numero-de-creditos-do-aluno)
 
 ### **Minhas atividades**
 
