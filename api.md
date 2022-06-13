@@ -20,7 +20,7 @@ API RESTful do projeto [HoCo](https://github.com/Guardians-DSC/HoCo), que dispõ
 
 - [**Cadastra uma organização do curso**](#cadastra-uma-organizacao-do-curso)
 - [**Lista as organizações do curso**](#lista-as-organizacoes-do-curso)
-- [**Remove uma organização do curso**](#remove-uma-organizaçao-do-curso)
+- [**Remove uma organização do curso**](#remove-uma-organizacao-do-curso)
 
 ### **Dúvidas**
 
