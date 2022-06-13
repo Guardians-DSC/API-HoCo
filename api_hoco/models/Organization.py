@@ -1,7 +1,7 @@
-import base64 
 from flask import url_for
 from .db import mongo
 from bson.objectid import ObjectId
+from api_hoco.util.util import encode_image
 
 class Organization:
     def __init__(self, name, access_url, image):
@@ -13,13 +13,9 @@ class Organization:
             -> access_url - (str): URL of the org, like a site or a social media link.
             -> image - (bytes): Image file of the organization logo.
         '''
-
-        image_bytes = base64.b64encode(image.read())
-        string_image = image_bytes.decode('utf-8')
-
         self.name = name
         self.access_url = access_url
-        self.image = string_image
+        self.image = encode_image(image)
 
     def get_properties(self):
         '''
