@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, make_response
-from api_hoco.models.Activity import Activity
+from bson.objectid import ObjectId
+from api_hoco.models.Activity import Activity, find_certificate
 from api_hoco.util.errors import input_not_given
+from api_hoco.models.db import mongo
 
 def register_activity(request):
     '''
@@ -32,5 +34,25 @@ def register_activity(request):
         result = new_activity.save()
         
         return make_response(jsonify(result), 201)
+    except Exception as e:
+        return make_response({'Error:': str(e)}, 500)
+
+def get_certificate(fileId):
+    '''
+        Controller function to retrieve a certificate of a registered activity.
+
+        Parameters:
+        -> filename - (str): file name of the certificate.
+    '''
+    try:
+        query = {'_id': ObjectId(fileId)}
+        doc = find_certificate(query)
+
+        filename = doc['fileName']
+        
+        response = make_response(doc['binFile'], 201)
+        response.headers['Content-Type'] = doc['fileType']
+        response.headers["Content-Dis'postion"] = f'attachment; filename=\"{filename}\"'
+        return response
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)
