@@ -34,3 +34,13 @@ def register_activity(request):
         return make_response(jsonify(result), 201)
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)
+
+def download_activity(file_name):
+    try:
+        result = Activity.download(file_name)
+        response = make_response(result)
+        response.headers['Content-Type'] = 'application/octet-stream'
+        response.headers["Content-Disposition"] = "attachment; filename={}".format(file_name)
+        return response
+    except Exception as e:
+        return make_response({'Error:': str(e)}, 500)
