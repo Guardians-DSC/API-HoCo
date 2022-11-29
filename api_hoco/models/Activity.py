@@ -47,10 +47,13 @@ class Activity:
             raise Exception
 
     @staticmethod
-    def download(file_name):
-        grid_fs_file = grid_fs.find_one({'filename': file_name})
-        return grid_fs_file.read()
-
+    def download(id):
+        grid_fs_file = grid_fs.find_one({'_id': ObjectId(id)})
+        if grid_fs_file:
+            return grid_fs_file.read()
+        else:
+            raise Exception
+    
     @staticmethod
     def find_orgs():
         '''

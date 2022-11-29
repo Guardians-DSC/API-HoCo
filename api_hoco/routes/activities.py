@@ -9,7 +9,7 @@ def create_activity():
     result = register_activity(request)
     return result
 
-@activities_blueprints.route('/activity/download/<file_name>', methods=['GET'])
-def get_activity(file_name):
-    result = download_activity(file_name)
+@activities_blueprints.route('/activity/download/<id>', methods=['GET'])
+def get_activity(id):
+    result = download_activity(id)
     return result
