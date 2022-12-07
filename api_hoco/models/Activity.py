@@ -41,6 +41,7 @@ class Activity:
             fp.write(self.certificate)
             file_id = fp._id
         if grid_fs.find_one(file_id) is not None:
+            activity_properties["_id"] = file_id
             result = mongo.db.activity.insert_one(activity_properties) 
             return { 'id': result.inserted_id, **activity_properties }
         else:
@@ -53,6 +54,15 @@ class Activity:
             return grid_fs_file.read()
         else:
             raise Exception
+    
+    @staticmethod
+    def get_all():
+        activities = list(mongo.db.activity.find({}))
+        result = list()
+        for activity in activities:
+            activity["certificate"] = f"activity/download/{activity.get('_id')}"
+            result.append(activity)
+        return result
     
     @staticmethod
     def find_orgs():
