@@ -1,7 +1,9 @@
 from flask import url_for
 from .db import mongo
 from bson.objectid import ObjectId
+from gridfs import GridFS
 
+grid_fs = GridFS(mongo.db)
 class Activity:
     def __init__(self, certificate, title, category, **kwargs):
         '''
@@ -34,11 +36,24 @@ class Activity:
             Function that saves the Activity on the database used.
         '''
         activity_properties = self.get_properties()
-        mongo.save_file(f'{self.title}-certificate', self.certificate)
 
-        result = mongo.db.activity.insert_one(activity_properties) 
-        return { 'id': result.inserted_id, **activity_properties }
+        with grid_fs.new_file(filename=f'{self.title}-certificate') as fp:
+            fp.write(self.certificate)
+            file_id = fp._id
+        if grid_fs.find_one(file_id) is not None:
+            result = mongo.db.activity.insert_one(activity_properties) 
+            return { 'id': result.inserted_id, **activity_properties }
+        else:
+            raise Exception
 
+    @staticmethod
+    def download(id):
+        grid_fs_file = grid_fs.find_one({'_id': ObjectId(id)})
+        if grid_fs_file:
+            return grid_fs_file.read()
+        else:
+            raise Exception
+    
     @staticmethod
     def find_orgs():
         '''
