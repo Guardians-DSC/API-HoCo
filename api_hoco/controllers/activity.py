@@ -44,3 +44,11 @@ def download_activity(id):
         return response
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)
+
+def get_all_activity():
+    try:
+        result = Activity.get_all()
+        response = jsonify({'activities': result})
+        return response
+    except Exception as e:
+        return make_response({'Error:': str(e)}, 500)
