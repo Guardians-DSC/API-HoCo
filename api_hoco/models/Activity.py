@@ -10,12 +10,14 @@ grid_fs = GridFS(mongo.db)
 class Activity:
     def __init__(self, certificate=None, **kwargs):
         '''
-            Initialization of an Object of the type Organzation.
+            Initialization of an Object of the type Activity.
 
             Parameters:
-            -> certificate - (bytes): Certificate file.
-            -> name - (str): Name of the organization.
-            -> access_url - (str): URL of the org, like a site or a social media link.
+            -> certificate - (bytes): Certificate file;
+            -> title - (str): Title of the activity;
+            -> category - (str): Activity category;
+            -> time - (str): Time in hours that this activity took;
+            -> credits - (str): Time in credits that this activity took;
         '''
         self.certificate = certificate
         self.title = kwargs.get('title')
@@ -92,12 +94,16 @@ class Activity:
             raise Exception
 
     @staticmethod
-    def update(certificate, id: str, **properties):
+    def update(id: str, certificate=None, **properties):
         '''
-            Function to delete a specific organization registered. To do so, the id of the organization is needed.
+            Function that updates a specific activity registered. To do so, 
+            the id of the activity is needed.
 
             Parameters:
-            -> org_id - (str): The id of the organization that's going to be deleted.
+            -> id - (str): The id of the activity that's going to be deleted;
+            -> certificate - (File): Activity's certificate file that's going 
+            to replace the old one;
+            -> properties - (dict): Other properties that are going to be updated.
         '''
         activity = Activity.find_activity(id)
 
