@@ -104,7 +104,14 @@ class Activity:
         if (certificate is not None):
             Activity.replace_certificate(id, certificate)
 
+        if (properties.get('time') is not None):
+            activity['time'] = properties['time']
+            activity['credits'] = None
+        elif (properties.get('credits') is not None):
+            activity['credits'] = properties['credits']
+            activity['time'] = None
+
         mongo.db.activity.update_one({'_id': ObjectId(id)}, {
-                                     '$set': {**activity, **properties}})
+                                     '$set': activity})
 
         return Activity.find_activity(id)
