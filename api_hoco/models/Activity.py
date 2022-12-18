@@ -2,10 +2,13 @@ from flask import url_for
 from .db import mongo
 from bson.objectid import ObjectId
 from gridfs import GridFS
+import json
 
 grid_fs = GridFS(mongo.db)
+
+
 class Activity:
-    def __init__(self, certificate, title, category, **kwargs):
+    def __init__(self, certificate=None, **kwargs):
         '''
             Initialization of an Object of the type Organzation.
 
@@ -15,8 +18,8 @@ class Activity:
             -> access_url - (str): URL of the org, like a site or a social media link.
         '''
         self.certificate = certificate
-        self.title = title
-        self.category = category
+        self.title = kwargs.get('title')
+        self.category = kwargs.get('category')
         self.credits = kwargs.get('credits')
         self.time = kwargs.get('time')
 
@@ -24,7 +27,7 @@ class Activity:
         '''
             Function that returns some properties of the Activity object
         '''
-        return { 
+        return {
             'title': self.title,
             'category': self.category,
             'credits': self.credits,
@@ -37,24 +40,38 @@ class Activity:
         '''
         activity_properties = self.get_properties()
 
-        with grid_fs.new_file(filename=f'{self.title}-certificate') as fp:
+        with grid_fs.new_file(filename=self.certificate.filename) as fp:
             fp.write(self.certificate)
             file_id = fp._id
         if grid_fs.find_one(file_id) is not None:
             activity_properties["_id"] = file_id
-            result = mongo.db.activity.insert_one(activity_properties) 
-            return { 'id': result.inserted_id, **activity_properties }
+            result = mongo.db.activity.insert_one(activity_properties)
+            return {'id': result.inserted_id, **activity_properties}
         else:
             raise Exception
 
     @staticmethod
+    def find_activity(id: str):
+        '''
+            Function to retrieve a activity using it's id
+        '''
+        activity = mongo.db.activity.find_one({'_id': ObjectId(id)})
+
+        if activity:
+            return activity
+        return Exception
+
+    @staticmethod
     def download(id):
         grid_fs_file = grid_fs.find_one({'_id': ObjectId(id)})
+        activity = Activity.find_activity(id)
+
+
         if grid_fs_file:
-            return grid_fs_file.read()
+            return activity, grid_fs_file.read()
         else:
             raise Exception
-    
+
     @staticmethod
     def get_all():
         activities = list(mongo.db.activity.find({}))
@@ -63,24 +80,33 @@ class Activity:
             activity["certificate"] = f"activity/download/{activity.get('_id')}"
             result.append(activity)
         return result
-    
-    @staticmethod
-    def find_orgs():
-        '''
-            Function to retrieve all the organization registered in the database.
-        '''
-        result = mongo.db.organization.find()
 
-        return [ org for org in result ]
 
     @staticmethod
-    def delete_org(org_id):
+    def replace_certificate(id, new_certificate):
+        file = grid_fs.find_one({'_id': ObjectId(id)})
+        if (file is not None):
+            grid_fs.delete(file._id)
+            with grid_fs.new_file(filename=file.filename, _id=ObjectId(id)) as fp:
+                fp.write(new_certificate)
+
+        else:
+            raise Exception
+
+    @staticmethod
+    def update(certificate, id: str, **properties):
         '''
             Function to delete a specific organization registered. To do so, the id of the organization is needed.
 
             Parameters:
             -> org_id - (str): The id of the organization that's going to be deleted.
         '''
-        mongo.db.organization.delete_one({ '_id': ObjectId(org_id) })
+        activity = Activity.find_activity(id)
 
+        if (certificate is not None):
+            Activity.replace_certificate(id, certificate)
 
+        mongo.db.activity.update_one({'_id': ObjectId(id)}, {
+                                     '$set': {**activity, **properties}})
+
+        return Activity.find_activity(id)
