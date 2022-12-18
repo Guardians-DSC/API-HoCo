@@ -16,7 +16,7 @@ def get_activity(id):
 
 @activities_blueprints.route('/activities', methods=['GET'])
 def get_activities():
-    result = get_all_activity()
+    result = get_all_activity(request)
     return result
 
 @activities_blueprints.route('/activity', methods=['PATCH'])

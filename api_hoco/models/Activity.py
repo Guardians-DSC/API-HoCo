@@ -24,6 +24,7 @@ class Activity:
         self.category = kwargs.get('category')
         self.credits = kwargs.get('credits')
         self.time = kwargs.get('time')
+        self.e_mail = kwargs.get('e-mail')
 
     def get_properties(self):
         '''
@@ -34,6 +35,7 @@ class Activity:
             'category': self.category,
             'credits': self.credits,
             'time': self.time,
+            'e-mail': self.e_mail
         }
 
     def save(self):
@@ -73,8 +75,8 @@ class Activity:
             raise Exception
 
     @staticmethod
-    def get_all():
-        activities = list(mongo.db.activity.find({}))
+    def get_all(e_mail: str):
+        activities = list(mongo.db.activity.find({ 'e-mail': e_mail }))
         result = list()
         for activity in activities:
             activity["certificate"] = f"activity/download/{activity.get('_id')}"

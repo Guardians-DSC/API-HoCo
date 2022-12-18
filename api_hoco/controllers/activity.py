@@ -10,9 +10,16 @@ def register_activity(request):
         -> request - (Flask.Request): Request object that contains all the data passed in the request.
     '''
     req_form = request.form
+    e_mail = req_form.get('e-mail')
+
+    if (not e_mail):
+        params_required = ['e-mail (str)']
+        return make_response(input_not_given(params_required), 400)
 
     credit = req_form.get('credits')
     time = req_form.get('time')
+
+
 
     if (time and credit) or (not time and not credit):
         exclusive_params = 'You can\'t give credit and time parameters, You\'ll need to choose one over another'
@@ -45,9 +52,13 @@ def download_activity(id):
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)
 
-def get_all_activity():
+def get_all_activity(request):
+    e_mail = request.args.get('e-mail')
+    if (e_mail is None):
+        return make_response({'Error:': 'E-mail property not sended'}, 400)
+    
     try:
-        result = Activity.get_all()
+        result = Activity.get_all(e_mail)
         response = jsonify({'activities': result})
         return response
     except Exception as e:
