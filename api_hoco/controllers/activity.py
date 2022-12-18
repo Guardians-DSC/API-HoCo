@@ -37,10 +37,10 @@ def register_activity(request):
 
 def download_activity(id):
     try:
-        [filename, result] = Activity.download(id)
+        filename, result = Activity.download(id)
         response = make_response(result)
         response.headers['Content-Type'] = 'application/octet-stream'
-        response.headers["Content-Disposition"] = f"attachment; filename={filename['title']}"
+        response.headers["Content-Disposition"] = f"attachment; filename={filename}"
         return response
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)

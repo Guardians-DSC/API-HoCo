@@ -45,8 +45,8 @@ class Activity:
             file_id = fp._id
         if grid_fs.find_one(file_id) is not None:
             activity_properties["_id"] = file_id
-            result = mongo.db.activity.insert_one(activity_properties)
-            return {'id': result.inserted_id, **activity_properties}
+            mongo.db.activity.insert_one(activity_properties)
+            return activity_properties
         else:
             raise Exception
 
@@ -64,11 +64,9 @@ class Activity:
     @staticmethod
     def download(id):
         grid_fs_file = grid_fs.find_one({'_id': ObjectId(id)})
-        activity = Activity.find_activity(id)
-
 
         if grid_fs_file:
-            return activity, grid_fs_file.read()
+            return grid_fs_file.filename, grid_fs_file.read()
         else:
             raise Exception
 
