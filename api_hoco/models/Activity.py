@@ -2,8 +2,11 @@ from flask import url_for
 from .db import mongo
 from bson.objectid import ObjectId
 from gridfs import GridFS
+from ..util.constants import CATEGORIES, LIMIT_CREDITS
 
 grid_fs = GridFS(mongo.db)
+
+
 class Activity:
     def __init__(self, certificate, title, category, **kwargs):
         '''
@@ -24,7 +27,7 @@ class Activity:
         '''
             Function that returns some properties of the Activity object
         '''
-        return { 
+        return {
             'title': self.title,
             'category': self.category,
             'credits': self.credits,
@@ -42,8 +45,8 @@ class Activity:
             file_id = fp._id
         if grid_fs.find_one(file_id) is not None:
             activity_properties["_id"] = file_id
-            result = mongo.db.activity.insert_one(activity_properties) 
-            return { 'id': result.inserted_id, **activity_properties }
+            result = mongo.db.activity.insert_one(activity_properties)
+            return {'id': result.inserted_id, **activity_properties}
         else:
             raise Exception
 
@@ -54,7 +57,7 @@ class Activity:
             return grid_fs_file.read()
         else:
             raise Exception
-    
+
     @staticmethod
     def get_all():
         activities = list(mongo.db.activity.find({}))
@@ -63,15 +66,6 @@ class Activity:
             activity["certificate"] = f"activity/download/{activity.get('_id')}"
             result.append(activity)
         return result
-    
-    @staticmethod
-    def find_orgs():
-        '''
-            Function to retrieve all the organization registered in the database.
-        '''
-        result = mongo.db.organization.find()
-
-        return [ org for org in result ]
 
     @staticmethod
     def delete_org(org_id):
@@ -81,6 +75,36 @@ class Activity:
             Parameters:
             -> org_id - (str): The id of the organization that's going to be deleted.
         '''
-        mongo.db.organization.delete_one({ '_id': ObjectId(org_id) })
+        mongo.db.organization.delete_one({'_id': ObjectId(org_id)})
 
+    @staticmethod
+    def get_user_data(email: str):
+        activities = Activity.get_all()  # TO-DO: Add email as parameter
+        amount = 0
+        data_dict = {}
+        for category, value in CATEGORIES.items():
+            data_dict[category] = {
+                'category': category,
+                'amount': 0,
+                'max': value,
+                'category_piece': 0,
+            }
 
+        for activity in activities:
+            if (activity['credits'] is not None and activity['category'] in CATEGORIES.keys()):
+                credits = int(activity['credits'])
+                amount += credits
+                data_dict[activity['category']]['amount'] = credits + \
+                    data_dict[activity['category']]['amount']
+
+        result = {
+            'amount': amount,
+            'max': LIMIT_CREDITS,
+            'categories': []
+        }
+
+        for category_data in data_dict.values():
+            category_data['category_piece'] = '{:.2f}'.format(category_data['amount'] / (amount + 0.01))
+            result['categories'].append(category_data)
+
+        return result
