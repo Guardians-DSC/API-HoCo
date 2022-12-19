@@ -1,9 +1,8 @@
 from flask import Blueprint, request
-from api_hoco.controllers.activity import register_activity, download_activity, get_user_data, get_all_activity
+from api_hoco.controllers.activity import register_activity, download_activity, get_user_data, get_all_activity, edit_activity, get_all_activity
 
 activities_blueprints = Blueprint(
     'activities', __name__, template_folder='templates')
-
 
 @activities_blueprints.route('/activity', methods=['POST'])
 def create_activity():
@@ -20,10 +19,16 @@ def get_activity(id):
 
 @activities_blueprints.route('/activities', methods=['GET'])
 def get_activities():
-    result = get_all_activity()
+    result = get_all_activity(request)
+    return result
+
+@activities_blueprints.route('/activity', methods=['PATCH'])
+def update_activity():
+    result = edit_activity(request)
     return result
 
 @activities_blueprints.route('/user_data', methods=['GET'])
 def user_data():
     result = get_user_data(request)
     return result
+
