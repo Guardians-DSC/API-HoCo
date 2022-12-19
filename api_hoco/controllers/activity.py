@@ -92,3 +92,14 @@ def edit_activity(request):
         return make_response(jsonify(result), 201)
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)
+
+def get_user_data(request):
+    email = request.args.get('e-mail')
+
+    try:
+        result = Activity.get_user_data(email)
+        response = jsonify(result)
+        return response
+    except Exception as e:
+        return make_response({'Error:': str(e)}, 500)
+    

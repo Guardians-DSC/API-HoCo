@@ -2,7 +2,7 @@ from flask import url_for
 from .db import mongo
 from bson.objectid import ObjectId
 from gridfs import GridFS
-import json
+from ..util.constants import CATEGORIES, LIMIT_CREDITS
 
 grid_fs = GridFS(mongo.db)
 
@@ -83,7 +83,6 @@ class Activity:
             result.append(activity)
         return result
 
-
     @staticmethod
     def replace_certificate(id, new_certificate):
         file = grid_fs.find_one({'_id': ObjectId(id)})
@@ -123,3 +122,36 @@ class Activity:
                                      '$set': activity})
 
         return Activity.find_activity(id)
+        mongo.db.organization.delete_one({'_id': ObjectId(org_id)})
+
+    @staticmethod
+    def get_user_data(email: str):
+        activities = Activity.get_all(email)
+        amount = 0
+        data_dict = {}
+        for category, value in CATEGORIES.items():
+            data_dict[category] = {
+                'category': category,
+                'amount': 0,
+                'max': value,
+                'category_piece': 0,
+            }
+
+        for activity in activities:
+            if (activity['credits'] is not None and activity['category'] in CATEGORIES.keys()):
+                credits = int(activity['credits'])
+                amount += credits
+                data_dict[activity['category']]['amount'] = credits + \
+                    data_dict[activity['category']]['amount']
+
+        result = {
+            'amount': amount,
+            'max': LIMIT_CREDITS,
+            'categories': []
+        }
+
+        for category_data in data_dict.values():
+            category_data['category_piece'] = '{:.2f}'.format(category_data['amount'] / (amount + 0.01))
+            result['categories'].append(category_data)
+
+        return result
