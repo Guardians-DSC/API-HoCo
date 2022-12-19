@@ -94,7 +94,7 @@ def edit_activity(request):
         return make_response({'Error:': str(e)}, 500)
 
 def get_user_data(request):
-    email = request.args.get('e-mail')
+    email = request.args.get('email')
 
     try:
         result = Activity.get_user_data(email)
