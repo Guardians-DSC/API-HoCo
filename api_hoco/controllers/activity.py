@@ -75,7 +75,7 @@ def edit_activity(request):
         Parameters:
         -> request - (Flask.Request): Request object that contains all the data passed in the request.
     '''
-    req_form = request.form
+    req_form: dict = request.form
 
     if ('_id' not in req_form):
         return make_response(input_not_given(['_id (str)']), 400)
@@ -84,9 +84,13 @@ def edit_activity(request):
     if ('certificate' in request.files):
         certificate =  request.files['certificate']
 
+
+    if ('certificate' in req_form):
+        req_form.pop('certificate')
+
     try:
         result = Activity.update(certificate, **req_form)
-        
+        result = Activity.get_all(req_form['e-mail'])
         return make_response(jsonify(result), 201)
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)
