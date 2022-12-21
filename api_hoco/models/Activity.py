@@ -131,7 +131,6 @@ class Activity:
     @staticmethod
     def get_user_data(email: str):
         activities = Activity.get_all(email)
-        amount = 0
         data_dict = {}
         for category, value in CATEGORIES.items():
             data_dict[category] = {
@@ -148,20 +147,17 @@ class Activity:
                     data_dict[activity['category']]['amount'] = CATEGORIES[activity['category']]
                 else:
                     credits = int(activity['credits'])
-                    amount += credits
-                    if (amount < CATEGORIES[activity['category']]):
-                        amount = CATEGORIES[activity['category']]
                     data_dict[activity['category']]['amount'] = credits + \
                         data_dict[activity['category']]['amount']
 
         result = {
-            'amount': amount,
+            'amount': sum([ data_dict[category]['amount'] for category in data_dict ]),
             'max': LIMIT_CREDITS,
             'categories': []
         }
 
         for category_data in data_dict.values():
-            category_data['category_piece'] = float('{:.2f}'.format(category_data['amount'] / (amount + 0.01)))
+            category_data['category_piece'] = float('{:.2f}'.format(category_data['amount'] / (result['amount'] + 0.01)))
             result['categories'].append(category_data)
 
         return result
