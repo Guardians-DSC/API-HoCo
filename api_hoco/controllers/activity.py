@@ -103,3 +103,12 @@ def get_user_data(request):
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)
     
+
+def del_user_activity(activity_id, request):
+    try:
+        result = Activity.remove(activity_id)
+        if result:
+            return get_all_activity(request)
+        return make_response({'Error:': "activity was not deleted"}, 400)
+    except Exception as e:
+        return make_response({'Error:': str(e)}, 500)

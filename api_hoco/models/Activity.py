@@ -154,3 +154,9 @@ class Activity:
             result['categories'].append(category_data)
 
         return result
+
+    @staticmethod
+    def remove(activity_id: str):
+        query = {'_id': activity_id}
+        result = mongo.db.activity.delete_one(query)
+        return result.deleted_count
