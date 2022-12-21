@@ -143,10 +143,16 @@ class Activity:
 
         for activity in activities:
             if (activity['credits'] is not None and activity['category'] in CATEGORIES.keys()):
-                credits = int(activity['credits'])
-                amount += credits
-                data_dict[activity['category']]['amount'] = credits + \
-                    data_dict[activity['category']]['amount']
+
+                if (data_dict[activity['category']]['amount'] + int(activity['credits']) > CATEGORIES[activity['category']]):
+                    data_dict[activity['category']]['amount'] = CATEGORIES[activity['category']]
+                else:
+                    credits = int(activity['credits'])
+                    amount += credits
+                    if (amount < CATEGORIES[activity['category']]):
+                        amount = CATEGORIES[activity['category']]
+                    data_dict[activity['category']]['amount'] = credits + \
+                        data_dict[activity['category']]['amount']
 
         result = {
             'amount': amount,
