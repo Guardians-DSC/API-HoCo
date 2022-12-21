@@ -19,15 +19,13 @@ def register_activity(request):
     credit = req_form.get('credits')
     time = req_form.get('time')
 
-
-
     if (time and credit) or (not time and not credit):
         exclusive_params = 'You can\'t give credit and time parameters, You\'ll need to choose one over another'
         return make_response(exclusive_params, 400)
 
     title = req_form.get('title')
     category = req_form.get('category')
-    certificate = request.files['certificate']
+    certificate = request.files['file']
     
     if not (title and category and certificate): 
         params_required = ['title (str)', 'category (str)', 'certificate (file)']
@@ -36,8 +34,8 @@ def register_activity(request):
 
     try:
         new_activity = Activity(certificate, **req_form)
-        result = new_activity.save()
-        
+        new_activity.save()
+        result = Activity.get_all(e_mail)
         return make_response(jsonify(result), 201)
     except Exception as e:
         return make_response({'Error:': str(e)}, 500)
@@ -79,13 +77,13 @@ def edit_activity(request):
     '''
     req_form = request.form
 
-    if ('id' not in req_form):
-        return make_response(input_not_given(['id (str)']), 400)
+    if ('_id' not in req_form):
+        return make_response(input_not_given(['_id (str)']), 400)
 
     certificate = None
     if ('certificate' in request.files):
         certificate =  request.files['certificate']
-    
+
     try:
         result = Activity.update(certificate, **req_form)
         

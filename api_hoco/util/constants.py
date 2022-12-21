@@ -4,7 +4,7 @@ CATEGORIES = {
     'monitoria': 16,
     'estagio': 18,
     'atividades profissionais': 16,
-    'representacao estudantil': 2,
+    'representação estudantil': 2,
     'evento': 16,
     'outros': 8,
 }

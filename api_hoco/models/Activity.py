@@ -95,7 +95,7 @@ class Activity:
             raise Exception
 
     @staticmethod
-    def update(id: str, certificate=None, **properties):
+    def update(certificate=None, **properties):
         '''
             Function that updates a specific activity registered. To do so, 
             the id of the activity is needed.
@@ -106,10 +106,15 @@ class Activity:
             to replace the old one;
             -> properties - (dict): Other properties that are going to be updated.
         '''
-        activity = Activity.find_activity(id)
+        _id = properties.get('_id')
+        activity = Activity.find_activity(_id)
 
         if (certificate is not None):
-            Activity.replace_certificate(id, certificate)
+            Activity.replace_certificate(_id, certificate)
+        if (properties.get('title') is not None):
+                activity['title'] = properties.get('title')
+        if (properties.get('category') is not None):
+                activity['category'] = properties.get('category')
 
         if (properties.get('time') is not None):
             activity['time'] = properties['time']
@@ -118,10 +123,10 @@ class Activity:
             activity['credits'] = properties['credits']
             activity['time'] = None
 
-        mongo.db.activity.update_one({'_id': ObjectId(id)}, {
+        mongo.db.activity.update_one({'_id': ObjectId(_id)}, {
                                      '$set': activity})
 
-        return Activity.find_activity(id)
+        return Activity.find_activity(_id)
 
     @staticmethod
     def get_user_data(email: str):
@@ -150,7 +155,7 @@ class Activity:
         }
 
         for category_data in data_dict.values():
-            category_data['category_piece'] = '{:.2f}'.format(category_data['amount'] / (amount + 0.01))
+            category_data['category_piece'] = float('{:.2f}'.format(category_data['amount'] / (amount + 0.01)))
             result['categories'].append(category_data)
 
         return result
