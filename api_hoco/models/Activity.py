@@ -159,3 +159,10 @@ class Activity:
             result['categories'].append(category_data)
 
         return result
+
+    @staticmethod
+    def remove(activity_id: str, email: str):
+        activity = mongo.db.activity.find_one({'_id': ObjectId(activity_id)})
+        if activity and activity["e-mail"] == email:
+            result = mongo.db.activity.delete_one({"_id": ObjectId(activity_id)})
+            return result.deleted_count
