@@ -66,11 +66,25 @@ def get_activities():
         return make_response({'Error:': str(e)}, 500)
 
 
-#TODO
 @activities_blueprints.route('/activity', methods=['PATCH'])
 def update_activity():
-    result = edit_activity(request)
-    return result
+    req_form: dict = request.form
+
+    if ('_id' not in req_form):
+        return make_response(input_not_given(['_id (str)']), 400)
+
+    certificate = None
+    if ('certificate' in request.files):
+        certificate =  request.files['certificate']
+
+    if ('certificate' in req_form):
+        req_form.pop('certificate')
+
+    try:
+        result = edit_activity(certificate, req_form)
+        return jsonify(result), 201
+    except Exception as e:
+        return make_response({'Error:': str(e)}, 500)
 
 
 @activities_blueprints.route('/user_data', methods=['GET'])

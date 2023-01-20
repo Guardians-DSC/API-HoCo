@@ -1,19 +1,14 @@
-from flask import Flask, jsonify, make_response
-
 from api_hoco.models.Activity import Activity
 from api_hoco.util.errors import input_not_given
 
 
 def register_activity(certificate, data):
-    try:
-        e_mail = data.get("e-mail")
-        new_activity = Activity(certificate, **data)
-        new_activity.save()
-        result = Activity.get_all(e_mail)
-        return result
-    except Exception as e:
-        return make_response({'Error:': str(e)}, 500)
-
+    e_mail = data.get("e-mail")
+    new_activity = Activity(certificate, **data)
+    new_activity.save()
+    result = Activity.get_all(e_mail)
+    return result
+   
 
 def download_activity(id):
     filename, result = Activity.download(id)
@@ -25,7 +20,7 @@ def get_all_activity(e_mail):
     return result
 
     
-def edit_activity(request):
+def edit_activity(certificate, data):
     '''
         Controller function to update a acitivity's properties. The properties that can be updated are:
         -> id - (str): Id of the activity that's going to be updated;
@@ -38,25 +33,9 @@ def edit_activity(request):
         Parameters:
         -> request - (Flask.Request): Request object that contains all the data passed in the request.
     '''
-    req_form: dict = request.form
-
-    if ('_id' not in req_form):
-        return make_response(input_not_given(['_id (str)']), 400)
-
-    certificate = None
-    if ('certificate' in request.files):
-        certificate =  request.files['certificate']
-
-
-    if ('certificate' in req_form):
-        req_form.pop('certificate')
-
-    try:
-        result = Activity.update(certificate, **req_form)
-        result = Activity.get_all(req_form['e-mail'])
-        return make_response(jsonify(result), 201)
-    except Exception as e:
-        return make_response({'Error:': str(e)}, 500)
+    result = Activity.update(certificate, **data)
+    result = Activity.get_all(data['e-mail'])
+    return result
 
 
 def get_user_data(email):
