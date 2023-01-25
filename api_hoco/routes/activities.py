@@ -111,7 +111,7 @@ def remove_user_activity(activity_id):
         result = del_user_activity(activity_id, email)
         if not result:
             return make_response({'Error': "activity was not deleted"}, 400)
-        response = jsonify(result)
+        response = jsonify(result), 200
         return response
     except Exception as e:
         return make_response({'Error': str(e)}, 500)
