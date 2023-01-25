@@ -66,3 +66,35 @@ def test_remove_activity(mock_del_user_activity, client):
 
     assert response.status_code == 200
     assert response_json == expected_return
+
+
+def test_update_activity_id_nao_informado(client):
+    data_form = {}
+    response = client.patch("/activity", data=data_form, content_type='multipart/form-data')
+    response_json = response.json
+
+    assert response.status_code == 400
+    assert response_json == "Parameters required: ['_id (str)']"
+
+
+@mock.patch('api_hoco.routes.activities.edit_activity')
+def test_update_activity(mock_edit_activity, client):
+    expected_return = {'isso': 'funcionou'}
+    mock_edit_activity.return_value = expected_return
+    data_form = {"_id": "123456789"}
+    response = client.patch("/activity", data=data_form, content_type='multipart/form-data')
+    response_json = response.json
+
+    assert response.status_code == 201
+    assert response_json == expected_return
+
+@mock.patch('api_hoco.routes.activities.edit_activity')
+def test_update_activity_excecao_no_controller(mock_edit_activity, client):
+    exception_msg = "uma exceção ocorreu no controller"
+    mock_edit_activity.side_effect = Exception(exception_msg)
+    data_form = {"_id": "123456789"}
+    response = client.patch("/activity", data=data_form, content_type='multipart/form-data')
+    response_json = response.json
+
+    assert response.status_code == 500
+    assert "Error" in response_json

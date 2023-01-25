@@ -84,7 +84,7 @@ def update_activity():
         result = edit_activity(certificate, req_form)
         return jsonify(result), 201
     except Exception as e:
-        return make_response({'Error:': str(e)}, 500)
+        return make_response({'Error': str(e)}, 500)
 
 
 @activities_blueprints.route('/user_data', methods=['GET'])
