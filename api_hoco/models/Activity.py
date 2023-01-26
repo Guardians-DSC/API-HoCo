@@ -1,10 +1,10 @@
 from flask import url_for
-from .db import mongo
+from api_hoco.connect2db import DB
 from bson.objectid import ObjectId
 from gridfs import GridFS
 from ..util.constants import CATEGORIES, LIMIT_CREDITS
 
-grid_fs = GridFS(mongo.db)
+grid_fs = GridFS(DB)
 
 
 class Activity:
@@ -49,7 +49,7 @@ class Activity:
             file_id = fp._id
         if grid_fs.find_one(file_id) is not None:
             activity_properties["_id"] = file_id
-            mongo.db.activity.insert_one(activity_properties)
+            DB.activity.insert_one(activity_properties)
             return activity_properties
         else:
             raise Exception
@@ -59,7 +59,7 @@ class Activity:
         '''
             Function to retrieve a activity using it's id
         '''
-        activity = mongo.db.activity.find_one({'_id': ObjectId(id)})
+        activity = DB.activity.find_one({'_id': ObjectId(id)})
 
         if activity:
             return activity
@@ -76,7 +76,7 @@ class Activity:
 
     @staticmethod
     def get_all(e_mail: str):
-        activities = list(mongo.db.activity.find({ 'e-mail': e_mail }))
+        activities = list(DB.activity.find({ 'e-mail': e_mail }))
         result = list()
         for activity in activities:
             activity["certificate"] = f"activity/download/{activity.get('_id')}"
@@ -123,7 +123,7 @@ class Activity:
             activity['credits'] = properties['credits']
             activity['time'] = None
 
-        mongo.db.activity.update_one({'_id': ObjectId(_id)}, {
+        DB.activity.update_one({'_id': ObjectId(_id)}, {
                                      '$set': activity})
 
         return Activity.find_activity(_id)
@@ -164,7 +164,7 @@ class Activity:
 
     @staticmethod
     def remove(activity_id: str, email: str):
-        activity = mongo.db.activity.find_one({'_id': ObjectId(activity_id)})
+        activity = DB.activity.find_one({'_id': ObjectId(activity_id)})
         if activity and activity["e-mail"] == email:
-            result = mongo.db.activity.delete_one({"_id": ObjectId(activity_id)})
+            result = DB.activity.delete_one({"_id": ObjectId(activity_id)})
             return result.deleted_count
