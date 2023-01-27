@@ -26,6 +26,7 @@ def get_all_activity(e_mail):
 
     
 def edit_activity(certificate, data):
+    _assert(data.get('e-mail') and type(data.get('e-mail')) is str, "Error: invalid email")
     '''
         Controller function to update a acitivity's properties. The properties that can be updated are:
         -> id - (str): Id of the activity that's going to be updated;
