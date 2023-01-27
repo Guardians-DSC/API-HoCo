@@ -1,5 +1,5 @@
 from flask import url_for
-from .db import mongo
+from api_hoco.connect2db import DB
 from bson.objectid import ObjectId
 from api_hoco.util.util import encode_image
 
@@ -35,23 +35,23 @@ class Organization:
         '''
         org_properties = self.get_properties()
 
-        org = mongo.db.organization.find_one({ 'name': self.name })
+        org = DB.organization.find_one({ 'name': self.name })
 
         if (org):
-            mongo.db.organization.update_one({ 'name': self.name }, { '$set': org_properties }) 
+            DB.organization.update_one({ 'name': self.name }, { '$set': org_properties }) 
 
         else:
-            mongo.db.organization.insert_one(org_properties) 
+            DB.organization.insert_one(org_properties) 
 
         
-        return mongo.db.organization.find_one({ 'name': self.name })
+        return DB.organization.find_one({ 'name': self.name })
 
     @staticmethod
     def find_orgs():
         '''
             Function to retrieve all the organization registered in the database.
         '''
-        result = mongo.db.organization.find()
+        result = DB.organization.find()
 
         return [ org for org in result ]
 
@@ -63,6 +63,6 @@ class Organization:
             Parameters:
             -> org_id - (str): The id of the organization that's going to be deleted.
         '''
-        mongo.db.organization.delete_one({ '_id': ObjectId(org_id) })
+        DB.organization.delete_one({ '_id': ObjectId(org_id) })
 
 
