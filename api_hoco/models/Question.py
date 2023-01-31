@@ -1,5 +1,5 @@
 from flask import url_for
-from .db import mongo
+from api_hoco.connect2db import DB
 from bson.objectid import ObjectId
 
 class Question:
@@ -19,16 +19,16 @@ class Question:
             Function that saves the Question on the database used. If the question already exists on the
             database (if the name is already registered) the db register is just updated.
         '''
-        mongo.db.questions.insert_one(vars(self)) 
+        DB.questions.insert_one(vars(self)) 
 
-        return mongo.db.questions.find_one({ 'question': self.question })
+        return DB.questions.find_one({ 'question': self.question })
 
     @staticmethod
     def find_questions():
         '''
             Function to retrieve all questions registered in the database.
         '''
-        result = mongo.db.questions.find()
+        result = DB.questions.find()
 
         return [ question for question in result ]
 
@@ -40,6 +40,6 @@ class Question:
             Parameters:
             -> question_id - (str): The question_id of the question that's going to be deleted.
         '''
-        mongo.db.questions.delete_one({ '_id': ObjectId(question_id) })
+        DB.questions.delete_one({ '_id': ObjectId(question_id) })
 
 

@@ -84,7 +84,7 @@ def update_activity():
         result = edit_activity(certificate, req_form)
         return jsonify(result), 201
     except Exception as e:
-        return make_response({'Error:': str(e)}, 500)
+        return make_response({'Error': str(e)}, 500)
 
 
 @activities_blueprints.route('/user_data', methods=['GET'])
@@ -104,11 +104,14 @@ def user_data():
 @activities_blueprints.route('/activity/<activity_id>', methods=['DELETE'])
 def remove_user_activity(activity_id):
     email = request.args.get('e-mail')
+    if not email:
+            return make_response({'Error': "e-mail was not informed"}, 400)
+    
     try:
         result = del_user_activity(activity_id, email)
         if not result:
-            return make_response({'Error:': "activity was not deleted"}, 400)
-        response = jsonify(result)
+            return make_response({'Error': "activity was not deleted"}, 400)
+        response = jsonify(result), 200
         return response
     except Exception as e:
-        return make_response({'Error:': str(e)}, 500)
+        return make_response({'Error': str(e)}, 500)
