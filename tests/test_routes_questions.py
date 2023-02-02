@@ -21,7 +21,7 @@ def client(app):
     return client
 
 
-'''@mock.patch('api_hoco.routes.questions.register_question')
+@mock.patch('api_hoco.routes.questions.register_question')
 def test_create_question(mock_register_question, client):
     expected_return = {
         "_id": "ID",
@@ -29,8 +29,8 @@ def test_create_question(mock_register_question, client):
 	    "answer": "answer"
     }
     mock_register_question.return_value = expected_return
-    data_form = {"question": "question?", "answer": "answer"}
-    response = client.post("/question", data=data_form, content_type='application/json')
+    data_json = {"question": "question?", "answer": "answer"}
+    response = client.post("/question", json=data_json, content_type='application/json')
     response_json = response.json
 
     assert response.status_code == 201
@@ -41,12 +41,12 @@ def test_create_question(mock_register_question, client):
 def test_register_question_excecao_no_controller(mock_register_question, client):
     exception_msg = "uma exceção ocorreu no controller"
     mock_register_question.side_effect = Exception(exception_msg)
-    question = "question?"
-    response = client.post("/question", data=question, content_type='application/json')
+    data_json = {"question": "question?", "answer": "answer"}
+    response = client.post("/question", json=data_json, content_type='application/json')
     response_json = response.json
 
     assert response.status_code == 500
-    assert "Error" in response_json'''
+    assert "Error:" in response_json
 
 
 @mock.patch('api_hoco.routes.questions.remove_question')
