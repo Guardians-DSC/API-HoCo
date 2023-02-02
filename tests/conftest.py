@@ -23,3 +23,11 @@ def controller_activity():
     yield activity
     from api_hoco.models import Activity
     Activity.DB.activity.delete_many({})
+    
+
+@pytest.fixture
+def controller_organization():
+    from api_hoco.controllers import organization
+    yield organization
+    from api_hoco.models import Organization
+    Organization.DB.activity.delete_many({})
