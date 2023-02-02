@@ -1,5 +1,10 @@
 from api_hoco.models.Activity import Activity
-from api_hoco.util.errors import input_not_given
+
+
+def _assert(condition, message):
+    if condition:
+        return
+    raise Exception(message)
 
 
 def register_activity(certificate, data):
@@ -21,6 +26,7 @@ def get_all_activity(e_mail):
 
     
 def edit_activity(certificate, data):
+    _assert(data.get('e-mail') and type(data.get('e-mail')) is str, "Error: invalid email")
     '''
         Controller function to update a acitivity's properties. The properties that can be updated are:
         -> id - (str): Id of the activity that's going to be updated;
@@ -44,6 +50,8 @@ def get_user_data(email):
     
 
 def del_user_activity(activity_id, email):
+    _assert(activity_id and type(activity_id) is str, "Error: activity_id is invalid")
+    _assert(email and type(email) is str, "Error: invalid email")
     result = Activity.remove(activity_id, email)
     if result:
         return get_all_activity(email)
