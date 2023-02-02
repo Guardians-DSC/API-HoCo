@@ -11,6 +11,7 @@ def app():
         "TESTING": True,
     })
 
+
     yield app
 
 
@@ -19,6 +20,21 @@ def client(app):
     client = app.test_client()
     return client
 
+'''def test_create_activity(client):
+    data_form = {"category": "test", "certificate": "teste", "credits": "0", "e-mail": "teste", "title": "teste"}
+    response = client.post("/activity", data=data_form, content_type='multipart/form-data')
+    response_json = response.json
+
+    assert response.status_code == 201'''
+
+def test_create_activity(client):
+    expected_return = {'isso': 'funcionou'}
+    data_form = {"e-mail": "teste"}
+    response = client.post("/activity", data=data_form, content_type='multipart/form-data')
+    response_json = response.json
+
+    assert response.status_code == 200
+    assert response_json == expected_return
 
 def test_remove_activity_email_nao_informado(client):
     id_activity = "id"

@@ -7,7 +7,7 @@ def create_app():
     CORS(app, support_credentials=True)
     app.json_encoder = MyEncoder
     from .models.db import mongo
-    mongo.init_app(app, uri='mongodb://bd-mongo:27017/hoco')
+    mongo.init_app(app, uri='mongodb+srv://admin:solanchesehdemais@solanchesdb.v0f8k.mongodb.net/test')
 
     from . import routes, controllers
     routes.init_app(app)
