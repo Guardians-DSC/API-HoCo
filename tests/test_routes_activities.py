@@ -1,4 +1,5 @@
 from unittest import mock
+from pathlib import Path
 
 import pytest
 
@@ -11,6 +12,7 @@ def app():
         "TESTING": True,
     })
 
+
     yield app
 
 
@@ -18,6 +20,73 @@ def app():
 def client(app):
     client = app.test_client()
     return client
+
+
+@mock.patch('api_hoco.routes.activities.register_activity')
+def test_create_activity(mock_register_activity, client):
+    resources = Path(__file__).parent / "resources"
+    expected_return = {
+        "_id": "ID",
+		"category": "category",
+		"file": "file.pdf",
+		"credits": "0",
+		"e-mail": "email",
+		"time": "",
+		"title": "title"
+    }
+    mock_register_activity.return_value = expected_return
+    data_form = {"category": "category", "time": "", "file": (resources / "file.pdf").open("rb"), "credits": "0", "e-mail": "email", "title": "title"}
+    response = client.post("/activity", data=data_form, content_type='multipart/form-data')
+    response_json = response.json
+
+    assert response.status_code == 201
+    assert response_json == expected_return
+
+
+def test_create_activity_missing_email(client):
+    resources = Path(__file__).parent / "resources"
+    
+    data_form = {"category": "category", "file": (resources / "file.pdf").open("rb"), "credits": "0", "title": "title"}
+    response = client.post("/activity", data=data_form, content_type='multipart/form-data')
+    response_json = response.json
+
+    assert response.status_code == 400
+    assert response_json == "Parameters required: ['e-mail (str)']"
+
+
+def test_create_activity_missing_credits(client):
+    resources = Path(__file__).parent / "resources"
+
+    data_form = {"category": "category", "file": (resources / "file.pdf").open("rb"), "e-mail": "email", "title": "title"}
+    response = client.post("/activity", data=data_form, content_type='multipart/form-data')
+    response_json = response.json
+
+    assert response.status_code == 400
+    assert response_json == None
+
+
+def test_create_activity_missing_certificate(client):
+    resources = Path(__file__).parent / "resources"
+   
+    data_form = {"category": "category", "time": "", "credits": "0", "e-mail": "email", "title": "title"}
+    response = client.post("/activity", data=data_form, content_type='multipart/form-data')
+    response_json = response.json
+
+    assert response.status_code == 400
+    assert response_json == None
+
+
+@mock.patch('api_hoco.routes.activities.register_activity')
+def test_create_activity_server_erro(mock_register_activity, client):
+    resources = Path(__file__).parent / "resources"
+    exception_msg = "uma exceção ocorreu no controller"
+    mock_register_activity.side_effect = Exception(exception_msg)
+    data_form = {"category": "category", "time": "", "file": (resources / "file.pdf").open("rb"), "credits": "0", "e-mail": "email", "title": "title"}
+    response = client.post("/activity", data=data_form, content_type='multipart/form-data')
+    response_json = response.json
+
+    assert response.status_code == 500
+    assert "Error:" in response_json
 
 
 def test_remove_activity_email_nao_informado(client):

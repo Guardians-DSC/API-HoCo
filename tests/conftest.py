@@ -14,6 +14,7 @@ DB_TEST = mongomock.MongoClient().tests_solanches
 def teardown():
     mock.patch('api_hoco.connect2db.DB', DB_TEST).start()
     mock.patch('api_hoco.models.Activity.DB', DB_TEST).start()
+    mock.patch('api_hoco.models.Question.DB', DB_TEST).start()
     yield
 
 
@@ -23,3 +24,11 @@ def controller_activity():
     yield activity
     from api_hoco.models import Activity
     Activity.DB.activity.delete_many({})
+
+
+@pytest.fixture
+def controller_questions():
+    from api_hoco.controllers import questions
+    yield questions
+    from api_hoco.models import Question
+    Question.DB.question.delete_many({})

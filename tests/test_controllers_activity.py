@@ -3,6 +3,20 @@ from unittest import mock
 import pytest
 
 
+@mock.patch('api_hoco.models.Activity.Activity.save')
+@mock.patch('api_hoco.models.Activity.Activity.get_all')
+def test_register_activity_successful(mock_save, mock_get_all, controller_activity):
+    certificate = None
+    data = {
+		"e-mail": "email"
+    }
+    expected_return = {"category": "category", "time": "", "filename": "file.pdf", "credits": "0", "e-mail": "email", "title": "title"}
+    mock_save.return_value = {"category": "category", "time": "", "filename": "file.pdf", "credits": "0", "e-mail": "email", "title": "title"}
+    mock_get_all.return_value = expected_return
+    result = controller_activity.register_activity(certificate, data)
+    assert result == expected_return
+
+
 @mock.patch('api_hoco.models.Activity.Activity.remove')
 def test_remove_activity_id_invalido(mock_remove, controller_activity):
     mock_remove.return_value = None
