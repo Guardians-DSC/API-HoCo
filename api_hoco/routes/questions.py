@@ -14,11 +14,11 @@ def create_question():
     question = req_body['question']
     answer = req_body['answer']
 
-    '''if not (question and answer): 
+    if not (question and answer): 
         params_required = ['question (str)', 'answer (str)']
 
         return make_response(input_not_given(params_required), 400)
-'''
+
     try:
         result = register_question(question, answer)
         return make_response(jsonify(result), 201)
