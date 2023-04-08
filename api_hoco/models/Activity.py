@@ -140,7 +140,15 @@ class Activity:
                 'category_piece': 0,
             }
 
+        hours = {}
         for activity in activities:
+            if (activity['time'] is not None):
+                if (hours.get(activity['category']) == None):
+                    hours[activity['category']] = int(activity['time'])
+                else:
+                    hours[activity['category']] += int(activity['time'])
+
+
             if (activity['credits'] is not None and activity['category'] in CATEGORIES.keys()):
 
                 if (data_dict[activity['category']]['amount'] + int(activity['credits']) > CATEGORIES[activity['category']]):
@@ -153,7 +161,8 @@ class Activity:
         result = {
             'amount': sum([ data_dict[category]['amount'] for category in data_dict ]),
             'max': LIMIT_CREDITS,
-            'categories': []
+            'categories': [],
+            'hours': [{ 'category': category, 'time': hours[category] } for category in hours.keys()]
         }
 
         for category_data in data_dict.values():
